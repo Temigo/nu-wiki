@@ -2,7 +2,7 @@
 title: Resources
 description: 
 published: true
-date: 2020-07-23T19:05:56.445Z
+date: 2020-07-23T21:09:31.739Z
 tags: 
 ---
 
@@ -19,33 +19,9 @@ You can access to the SLAC computing servers either from a web-browser or a term
 
 You should (rather, have to) try both. As an old person who grew up with a terminal and had a preference to it, if you are someone like me and thinking to default to a terminal, I strognly recommend you give a shot to a web-browser option as it has some clear benefits.
 
-## Open On-Demand (OOD)
-OOD is what I called a web-browser method. 
-* **One-time preparation**: you need to do below only before the 1st time use of OOD.
-  * Log into `ocio-gpu01` (`ssh $USER@ocio-gpu01.slac.stanford.edu`)
-  * Follow the commands below
-  ```
-  $> cd
-  $> sh /gpfs/slac/staas/fs1/g/jupyter/ood/convert.sh
-  $> rm -rf $HOME/.singularity
-  $> mkdir -p /gpfs/slac/staas/fs1/g/neutrino/$USER/.singularity
-  $> ln -s /gpfs/slac/staas/fs1/g/neutrino/$USER/.singularity $HOME/.singularity
-  ```
-
-* **Step 1**: go to [SLAC ondemand](https://sdf.slac.stanford.edu) + log in with your unix username
-* **Step 2**: on the page-top tabs, `Interactive Apps` => `Jupyter`.
-* **Step 3**: configure your _job instance_ to run a Jupyter lab.
-  - **Jupyter Instance**: this drop-down menu let you choose which `singularity` container (=software stack and work environment) to use. Read more about `singularity` in the later sections. If you are unsure, select `neutrino-jupyter/ub18.04-cuda10.2-extra` option.
-  - **Use JupyterLab instead of Jupyter Notebook?**: mark this check-box (unless you know you shouldn't).
-  - **Disable JupyterLab extensions (Run with --core-mode)**: leave unchecked.
-  - **Account**: if unsure, type `ml`.
-  - **Number of hours**: unsure, type `2`. This is the number of hours your _job session_ lasts.
-  - **Number of CPU cores**: unsure, type `2`. This is the number of cores for your job.
-  - **Total Memory to allocate**: use a dropdown to navigate. Unsure, try 19968 (~20GB).
-  - **Number of GPUs**: choose `0` unless you need a GPU (`1` if you do).
-  - **I would like to receive an email when the session starts**: leave unchecked since your session probably starts immediately.
-* **Step 4**: launch your job.
-
+* [Access via Open On-Demand](/guides/OOD/howto) (a web-browser based method)
+* [Access via SSH]() (a terminal-based method)
+* [Access via Jupyterhub]() (a web-browser based method ... **DEPRECATED**, going away)
 
 ## SSH
 
