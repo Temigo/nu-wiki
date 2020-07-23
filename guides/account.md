@@ -2,9 +2,11 @@
 title: Computing Accounts
 description: 
 published: true
-date: 2020-05-18T21:57:34.730Z
+date: 2020-07-23T16:57:55.377Z
 tags: 
 ---
+
+## Step 1: Getting your account
 
 There are two types of accounts: **unix** and **windows**. 
 
@@ -12,17 +14,18 @@ There are two types of accounts: **unix** and **windows**.
 
 **Windows** account is used for emails, scheduler apps, HR websites, travel request/report, IT service ticket, etc.. If you are a SLAC employee, you need this. If you are a non-SLAC collaborator, you might not need this.
 
-## How to request Unix/Windows account?
-Start your account request [here](https://oraweb4.slac.stanford.edu/apex/epnprod/f?p=134:1::::::)
+### How to request an account?
+* **Step 1.1**: request SLAC user account (called SLUO). Go to this [page](https://www-group.slac.stanford.edu/sluo/) and follow the hyperlink "SLUO User Information Form" to submit your request. Contact [Kazu](mailto:kterao@slac.stanford.edu) that you submitted a request.
+* **Step 1.2**: once the request is approved, you should receive an email notifying that and your "system ID". Contact [Kazu](mailto:kterao@slac.stanford.edu) that your SLUO account is ready and inform this system ID. A computing account request will be followed up.
 
-## Unix $HOME quota (do this)
-Once you have unix account, you can go to [this webpage](https://www.slac.stanford.edu/comp/unix/auth/afs-self.shtml) and request 20GB space in your `$HOME` space. Once you obtain your account, there are many unix/linux server machines you can log into. Most (if not all) machines share the same home directory via [afs](https://en.wikipedia.org/wiki/Andrew_File_System), and your home space is only 2GB (sad!). 
-
-## Emails and Printers
-SLAC provides Email service with an windows account (so don't bother if you have only unix account). A printer can be used by anyone as long as you figure out how to use it. Hopefully description below helps!
+### To-do's after getting an account
+* Make sure you complete the cyber security training, or your account will be disabled soon.
+* Go to [this page](https://www.slac.stanford.edu/comp/unix/auth/afs-self.shtml) and set your unix `$HOME` directory space quota to 20GB
 
 ### Configuring Email app
 Here is the [link](http://www2.slac.stanford.edu/comp/messaging/Installing/default.htm) to see how to configure your SLAC email on apple Mail, Thunderbird, etc..
 
-### Configuring printers
-Follow the instructions in this [link](https://slacprod.service-now.com/nav_to.do?uri=%2Fkb_view.do%3Fsys_kb_id%3D4be2f211db779380677174131f9619b1%26sysparm_language%3D%26sysparm_nameofstack%3D%26sysparm_kb_search_table%3D%26sysparm_search%3D). Ground floor printer queue is b084f1c5255 and driver is Canon imageRunner 5570 Foomatic/Postscript (recommended) .
+### SLAC VPN
+VPN is needed when you want to use (some) printers and access management tools like peoplesoft. Most of you may not need these services, so don't bother unless you need them.
+* Submit a VPN access request from [IT service desk](https://slacprod.servicenowservices.com/it_services)
+* Download Cisco AnyConnect Secure Mobility Client, connect to su-vpn.stanford.edu
