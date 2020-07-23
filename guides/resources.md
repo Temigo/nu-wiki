@@ -2,7 +2,7 @@
 title: Resources
 description: 
 published: true
-date: 2020-07-23T21:56:10.438Z
+date: 2020-07-23T21:57:50.798Z
 tags: 
 ---
 
@@ -15,13 +15,17 @@ We break down "how to use SLAC computing?" into 4 steps/categories...
 * Scaling: how to submit batch (=unattended, automated) job to run your computing script?
 
 # Gateway / Access
-You can access to the SLAC computing servers either from a web-browser or a terminal. Both provides nearly identical flexibility in doing your software work, so you should use whichever you feel comfortable with. 
-
-You should (rather, have to) try both. As an old person who grew up with a terminal and had a preference to it, if you are someone like me and thinking to default to a terminal, I strognly recommend you give a shot to a web-browser option as it has some clear benefits.
+You can access to the SLAC computing servers either from a web-browser or a terminal. These methods are complementary to each other in strengthe, and you are encouraged to try both methods at least once.
 
 * [Access via Open On-Demand](/guides/ood) (a web-browser based method)
-* [Access via SSH]() (a terminal-based method)
-* [Access via Jupyterhub]() (a web-browser based method ... **DEPRECATED**, going away)
+* [Access via Jupyterhub](/guides/jupyterhub) (a web-browser based method ... **DEPRECATED**, going away)
+* Access via `ssh` (a terminal-based method, **below**).
+
+### ssh
+From your laptop/desktop terminal, you can access SLAC computing servers via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell). There are several gateway machines at SLAC but the most relevant one is probably `ocio-gpu01`.
+```
+ssh $USER@ocio-gpu01.slac.stanford.edu
+```
 
 ## SSH
 
@@ -34,11 +38,7 @@ You should (rather, have to) try both. As an old person who grew up with a termi
     * Storage
         * `/scratch` is a local SSD mount with fast IO (not networking involved) available with a few TB space. Create `/scratch/$USER` space for your own use. The space may be wiped out after your job is finished (or could remain for arbitrary period).
         * `/gpfs/slac/staas/fs1/g/neutrino` is available as a network mounted storage space. You can read/write from this space from your job (and also from ssh log-in nodes).
-* **Open ondemand** (replacing Jupyterhub below)
-  * **For the 1st time use**, before you spawn an instance, follow the instruction on the page top to _ssh log into SLAC machine and run the specified shell script_ that creates necessary symbolic links, in particular `$HOME/ondemand`. **Here's why**: with ondemand, you will run a Jupyter notebook instance from your `$HOME` directory but without a write permission to your AFS `$HOME`. You are strongly encouraged to use `/gpfs` space for storing your files etc. (and `/scratch` for data files for fast read/write as usual). To access `/gpfs` from your Jupyter notebook, you need to make a symbolic link in your AFS `$HOME` that points to `/gpfs` space. That's what the script does.
-  * If you aren't sure, choose **neutrino-jupyter/ub18.04-gpu-ana0-ml-larcv2**. If you want to try running your own image under `/gpfs` space, try "Custom Singularity Image..." option and modify commands to instantiate. Finally, if you want a new image option to be in the list, modify [this yaml](https://github.com/slaclab/slac-ood-jupyter/blob/master/form.yml.erb) and send a pull request (but do this for a group-level image, not personal ones to avoid a long dropdown list).
-* Enjoy your notebook: remember, you write (i.e. create a new notebook, etc.) under the symbolic link area called `ondemand`. 
-        
+
 
 * **Jupyterhub** (this is going away, probably by the end of 2020)
     * Go to [SLAC jupyterhub](https://jupyter.slac.stanford.edu/) + log in with your unix username.
