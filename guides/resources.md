@@ -2,7 +2,7 @@
 title: Resources
 description: 
 published: true
-date: 2020-07-23T19:03:19.101Z
+date: 2020-07-23T19:05:56.445Z
 tags: 
 ---
 
@@ -35,15 +35,15 @@ OOD is what I called a web-browser method.
 * **Step 1**: go to [SLAC ondemand](https://sdf.slac.stanford.edu) + log in with your unix username
 * **Step 2**: on the page-top tabs, `Interactive Apps` => `Jupyter`.
 * **Step 3**: configure your _job instance_ to run a Jupyter lab.
-  * **Jupyter Instance**: this drop-down menu let you choose which `singularity` container (=software stack and work environment) to use. Read more about `singularity` in the later sections. If you are unsure, select `neutrino-jupyter/ub18.04-cuda10.2-extra` option.
-  * **Use JupyterLab instead of Jupyter Notebook?**: mark this check-box (unless you know you shouldn't).
-  * **Disable JupyterLab extensions (Run with --core-mode)**: leave unchecked.
-  * **Account**: if unsure, type `ml`.
-  * **Number of hours**: unsure, type `2`. This is the number of hours your _job session_ lasts.
-  * **Number of CPU cores**: unsure, type `2`. This is the number of cores for your job.
-  * **Total Memory to allocate**: use a dropdown to navigate. Unsure, try 19968 (~20GB).
-  * **Number of GPUs**: choose `0` unless you need a GPU (`1` if you do).
-  * **I would like to receive an email when the session starts**: leave unchecked since your session probably starts immediately.
+  - **Jupyter Instance**: this drop-down menu let you choose which `singularity` container (=software stack and work environment) to use. Read more about `singularity` in the later sections. If you are unsure, select `neutrino-jupyter/ub18.04-cuda10.2-extra` option.
+  - **Use JupyterLab instead of Jupyter Notebook?**: mark this check-box (unless you know you shouldn't).
+  - **Disable JupyterLab extensions (Run with --core-mode)**: leave unchecked.
+  - **Account**: if unsure, type `ml`.
+  - **Number of hours**: unsure, type `2`. This is the number of hours your _job session_ lasts.
+  - **Number of CPU cores**: unsure, type `2`. This is the number of cores for your job.
+  - **Total Memory to allocate**: use a dropdown to navigate. Unsure, try 19968 (~20GB).
+  - **Number of GPUs**: choose `0` unless you need a GPU (`1` if you do).
+  - **I would like to receive an email when the session starts**: leave unchecked since your session probably starts immediately.
 * **Step 4**: launch your job.
 
 
