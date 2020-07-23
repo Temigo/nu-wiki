@@ -2,7 +2,7 @@
 title: SLAC Neutrino Group Computing
 description: Migrated from Github wiki
 published: true
-date: 2020-07-23T16:36:12.933Z
+date: 2020-07-23T17:04:30.638Z
 tags: 
 ---
 
@@ -18,8 +18,8 @@ You can find the following info on this wiki after info is filled.
 * [**Step 1: Computing account at SLAC**](/guides/account)
     * What are they? How to get them? What should you do first after getting accounts?
 
-* [**Step 2: Computing resource summary**](/guides/resources)
-    * This covers both neutrino dedicated and shared ones
+* [**Step 2: Using the computing resources**](/guides/resources)
+    * Gimme GPUs!
     
 * [**FYI: Singularity containers for ML group work**](/guides/containers)
     * Or docker, but not your lunch container.
