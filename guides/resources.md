@@ -2,7 +2,7 @@
 title: Resources
 description: 
 published: true
-date: 2020-07-23T21:09:31.739Z
+date: 2020-07-23T21:56:10.438Z
 tags: 
 ---
 
@@ -19,7 +19,7 @@ You can access to the SLAC computing servers either from a web-browser or a term
 
 You should (rather, have to) try both. As an old person who grew up with a terminal and had a preference to it, if you are someone like me and thinking to default to a terminal, I strognly recommend you give a shot to a web-browser option as it has some clear benefits.
 
-* [Access via Open On-Demand](/guides/OOD/howto) (a web-browser based method)
+* [Access via Open On-Demand](/guides/ood) (a web-browser based method)
 * [Access via SSH]() (a terminal-based method)
 * [Access via Jupyterhub]() (a web-browser based method ... **DEPRECATED**, going away)
 
