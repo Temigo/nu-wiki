@@ -2,7 +2,7 @@
 title: Resources
 description: 
 published: true
-date: 2020-07-23T21:57:50.798Z
+date: 2020-07-23T22:30:14.610Z
 tags: 
 ---
 
@@ -14,93 +14,43 @@ We break down "how to use SLAC computing?" into 4 steps/categories...
 * Softwares: how can I set up a software stuck? how can I add more softwares?
 * Scaling: how to submit batch (=unattended, automated) job to run your computing script?
 
-# Gateway / Access
+## Gateway / Access
 You can access to the SLAC computing servers either from a web-browser or a terminal. These methods are complementary to each other in strengthe, and you are encouraged to try both methods at least once.
 
-* [Access via Open On-Demand](/guides/ood) (a web-browser based method)
-* [Access via Jupyterhub](/guides/jupyterhub) (a web-browser based method ... **DEPRECATED**, going away)
-* Access via `ssh` (a terminal-based method, **below**).
-
-### ssh
-From your laptop/desktop terminal, you can access SLAC computing servers via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell). There are several gateway machines at SLAC but the most relevant one is probably `ocio-gpu01`.
+* Access via `ssh` (a terminal-based method). 
+  * From your laptop/desktop terminal, you can access SLAC computing servers via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell). There are several gateway machines at SLAC but the most relevant one is probably `ocio-gpu01`.
 ```
 ssh $USER@ocio-gpu01.slac.stanford.edu
 ```
-
-## SSH
-
-* **SSH**
-    * `ssh $USER@ocio-gpu01.slac.stanford.edu` then `module load slurm`.
-    * Use `srun` to launch an interactive session (job) for an interactive R&D
-    * Use `sbatch` to submit batch jobs for streamlined workflow
-    * Use our `Singularity` images (`/gpfs/slac/staas/fs1/g/neutrino/images`) to run your job with `run` or `sbatch`. See [here](https://github.com/DeepLearnPhysics/playground-singularity/wiki) for getting started with `Singularity`.
-    * See [slurm at SLAC](https://confluence.slac.stanford.edu/display/SCSPub/Slurm+Batch) for more details.
-    * Storage
-        * `/scratch` is a local SSD mount with fast IO (not networking involved) available with a few TB space. Create `/scratch/$USER` space for your own use. The space may be wiped out after your job is finished (or could remain for arbitrary period).
-        * `/gpfs/slac/staas/fs1/g/neutrino` is available as a network mounted storage space. You can read/write from this space from your job (and also from ssh log-in nodes).
-
-
-* **Jupyterhub** (this is going away, probably by the end of 2020)
-    * Go to [SLAC jupyterhub](https://jupyter.slac.stanford.edu/) + log in with your unix username.
-    * Spawn `ub18.04-gpu-ana0-ml-larcv2` DeepLearnPhysics image
-    * Use terminal, Python console, or Jupyter notebook for any interactive work
-    * Note you get one NVIDIA 2080Ti GPU if you use a jupyterhub option. See FAQ below for more questions.
-        * `/scratch` is a local SSD mount with fast IO (not networking involved) available with a few TB space. Create `/scratch/$USER` space for your own use. The space may be wiped out after your job is finished (or could remain for arbitrary period).
-        * `/gpfs/slac/staas/fs1/g/neutrino/training` is available as your `$HOME` (or `/home/$USER`), and is a network mounted storage space. You can read/write from this space from your job (and also from ssh log-in nodes). However, unlike the case of `ssh+slurm`, you cannot access other `/gpfs` space that does not belong to the mounted path.
-
-# Overview (please update this!)
-There are CPU and GPU resources at SLAC, which you can access with your unix account. Largely there are 3 types of machines.
-* `ssh` client servers ... gateway machines to be accessed via ssh but not for computing, could be for slurm batch job submission.
-* `gifs` storage servers ... network-mounted HDD storage server. Network speed is limited to 1Gb/s upload (write) and 10Gb/s download (read).
-* `slurm` batch servers ... many computing servers (CPU/GPU) put together to which you can submit your jobs.
-* `bullet` cluster ... a small scale HPC system with distributed filesystem.
-
-## Typical workflow
-Most (if not all) computing by our group at SLAC is for machine learning research using GPUs. A typical workflow is to have a software to develop, data access to a storage server, There are two typical user workflows:
-* **SSH**
-    * `ssh $USER@ocio-gpu01.slac.stanford.edu` then `module load slurm`.
-    * Use `srun` to launch an interactive session (job) for an interactive R&D
-    * Use `sbatch` to submit batch jobs for streamlined workflow
-    * Use our `Singularity` images (`/gpfs/slac/staas/fs1/g/neutrino/images`) to run your job with `run` or `sbatch`. See [here](https://github.com/DeepLearnPhysics/playground-singularity/wiki) for getting started with `Singularity`.
-    * See [slurm at SLAC](https://confluence.slac.stanford.edu/display/SCSPub/Slurm+Batch) for more details.
-    * Storage
-        * `/scratch` is a local SSD mount with fast IO (not networking involved) available with a few TB space. Create `/scratch/$USER` space for your own use. The space may be wiped out after your job is finished (or could remain for arbitrary period).
-        * `/gpfs/slac/staas/fs1/g/neutrino` is available as a network mounted storage space. You can read/write from this space from your job (and also from ssh log-in nodes).
-* **Jupyterhub**
-    * Go to [SLAC jupyterhub](https://jupyter.slac.stanford.edu/) + log in with your unix username.
-    * Spawn `ub18.04-gpu-ana0-ml-larcv2` DeepLearnPhysics image
-    * Use terminal, Python console, or Jupyter notebook for any interactive work
-    * Note you get one NVIDIA 2080Ti GPU if you use a jupyterhub option. See FAQ below for more questions.
-        * `/scratch` is a local SSD mount with fast IO (not networking involved) available with a few TB space. Create `/scratch/$USER` space for your own use. The space may be wiped out after your job is finished (or could remain for arbitrary period).
-        * `/gpfs/slac/staas/fs1/g/neutrino/training` is available as your `$HOME` (or `/home/$USER`), and is a network mounted storage space. You can read/write from this space from your job (and also from ssh log-in nodes). However, unlike the case of `ssh+slurm`, you cannot access other `/gpfs` space that does not belong to the mounted path.
-
-### Permission issues (do this first if you ssh!)
-AFAIK, when you log into an interactive node with slac.stanford.edu domains, you have to run `kinit` and `aklog` (in respective order) to be able to actually execute your **write** permission in your AFS space which includes your `$HOME` directory. To be extra clear, without those commands, even if you have a write permission to a file or a directory, you cannot execute your permission. **This becomes a problem when you use a GPU** because some part of CUDA requires you to have write permission in your `$HOME` directory.
+* [Access via Open On-Demand](/guides/ood) (a web-browser based method)
+* [Access via Jupyterhub](/guides/jupyterhub) (a web-browser based method ... **DEPRECATED**, going away)
 
 ## Storage space 
 On each server machine, you typically have 3 types of space to work.
-* `SSH $HOME` ... `afs` mounted servers, up to 20GB space (default 2GB, [go here](https://www.slac.stanford.edu/comp/unix/auth/afs-self.shtml) to increase).
-* `/scratch` ... local SSD space for fast read/write (no networking involved), available on most servers, all `slurm` workers.
-* `/gpfs` ... [GPFS](https://en.wikipedia.org/wiki/IBM_Spectrum_Scale) disk arrays (HDD), TBs, network mounted
+* `$HOME` ... `afs` mounted servers, up to 20GB space (default 2GB, [go here](https://www.slac.stanford.edu/comp/unix/auth/afs-self.shtml) to increase for free). While you can access this space across all server machines, it is not recommended to use this space. Use `/gpfs` space below instead.
+* `/scratch` ... local RAID0 SSD space for fast read/write (no networking involved), available on most servers but files written in this space will be purged after you log out.
+* `/gpfs` ... [GPFS](https://en.wikipedia.org/wiki/IBM_Spectrum_Scale) disk arrays (HDD), TBs, network mounted and accessible across server machines.
+    * Create "your `gpfs` space" and feel free to store files underneath.
+    ```
+    mkdir /gpfs/slac/staas/fs1/g/neutrino/$USER
+    ```
     * 10 Gbps on the host, 1 Gbps on a client.
-    * You can buy space from a shared SLAC GPFS server at ~$60/TB/year ([how to](https://github.com/NuSLAC/ComputingCookbook/wiki/2.-Request-%22I-want-X%22)). Or you can purchase your dedicated GPFS server (about $70k for 500TB). Note, if you use a shared server, your network is also shared (so the speed depends on other sharing users).
+    * 40TB allocated for the whole neutrino group. We can expand at ~$60/TB/year ([how to](https://github.com/NuSLAC/ComputingCookbook/wiki/2.-Request-%22I-want-X%22)). Or we can purchase your dedicated GPFS server (about $70k for 500TB). Note, if you use a shared server, your network is also shared (so the speed depends on other sharing users).
 
-## Login/Submission servers
-The servers from which you can submit `slurm` jobs (i.e. submit jobs to queues, more in the [SLAC slurm manual](https://confluence.slac.stanford.edu/display/SCSPub/Slurm+Batch) are `ocio-gpu01` temporarily. If this does not work, [contact kazu](mailto:kterao@slac.stanford.edu).
+## Software stacks
 
-A generic gateway for all SLAC users is `centos7.slac.stanford.edu` (as far as I know). Logging into this domain will be subject to a _load balancing_ among 4 underlying server machines including `cent7a`, `cent7b`, `cent7c`, and `cent7d`.
+* **Singularity**
+  * At SLAC we recommend the use of a [Singularity container](https://sylabs.io/singularity/) to carry around and setup a software environment. Note if you are using `Open On-Demand`, your session lives inside a singularity container and you should not be following the instructions below. If you logged in using `ssh` or launching `slurm` job, this instruction is relevant.
+  * Shared `Singularity` container images can be found at `/gpfs/slac/staas/fs1/g/neutrino/images`.
+  * If you aren't sure about `Singularity` or which container to use, you can just try:
+  ```
+  $> singularity exec --nv --bind /gpfs --bind /scratch /gpfs/slac/staas/fs1/g/neutrino/images/ub18.04-cuda10.2-extra-ME.sif bash
+  ```
+  * See the official documentation or [here](https://github.com/DeepLearnPhysics/playground-singularity/wiki) for getting started with `Singularity`.
 
-## `slurm` batch resources
-The details can be found in the [SLAC slurm manual](https://confluence.slac.stanford.edu/display/SCSPub/Slurm+Batch). But here's a surface summary of available resource.
+* **CernVM File System (CVMFS)**
+  * [CVMFS](https://cernvm.cern.ch/portal/filesystem) is also available at SLAC. Anyone who uses it should help documenting here.
 
-* `nu-gpu0X` ... 3 servers, each server with x4 NVIDIA V100 (32GByte) with NVLINK2 interconnect.
-* `ocio-gpu5X` ... 2 servers, each with x4 NVIDIA V100 (32GByte) with NVLINK2 interconnect. 
-* `hep-gpu0X` ... 3 servers, one server (`hep-gpu01`) with x10 NVIDIA 1080Ti (11GByte) and two servers with x10 NVIDIA 2080Ti (11GByte) with PCI-e interconnect.
-* `ml-gpuXX` ... 11 servers, each with x10 NVIDIA 2080Ti (11GByte) with PCI-e interconnect.
-* `cryoem-gpuXX` ... 10 servers with x10 NVIDIA 1080Ti (11GByte) + 5 servers with x10 NVIDIA 2080Ti (11GByte) with PCI-e interconnect. 1 server (`cryoem-gpu50`) with x4 NVIDIA v100 (32GByte) with NVLINK2 interconnect.
-* `lcls-gpu01` ... this I actually don't know...
+## Scaling data processing
+You can use [slurm](https://slurm.schedmd.com/documentation.html) to submit your computing job to many computing servers. [Here](https://confluence.slac.stanford.edu/display/SCSPub/Slurm+Batch) is a documentation of how to use `slurm` at SLAC. You can submit an interactive job (literally it's like `ssh` into another machine) using `srun` or submit unattended jobs to run in the background using `sbatch`.
 
-In summary, there are 290 NVIDIA 1080Ti/2080Ti GPUs across 29 servers + 24 NVIDIA V100 GPUs across 6 servers available to `slurm` users.  You can find a list of servers to available *slurm partition* by executing `sinfo` on `ocio-gpu01` submission node.
-
-## Bullet cluster
-I have no freaking idea. Leon can maybe help us...
