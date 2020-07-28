@@ -2,7 +2,7 @@
 title: Open On-Demand
 description: 
 published: true
-date: 2020-07-23T21:04:09.116Z
+date: 2020-07-28T15:39:16.680Z
 tags: 
 ---
 
@@ -63,7 +63,28 @@ For questions about the configuration options, look at the FAQs at the bottom of
 **Q: How long can I set the number of hours?**
   * You can set to what you need, but often you don't know that beforehand. I would say probably occupying a node with 1 GPU won't put pressure on available resource for everyone, so you can set it a longer time (like 8 to 12 hours) without worrying too much. If you have a good reason (i.e. training a ML model that may take days), feel free to set an appropraite number of hours.
 
-**Q: Can I use my own singularity image?**
+**Q: How can I install additional softwares?**
+  * In general three ways to go about it. 
+    1. In general, you can download any software (and build, if necessary) at your local area. You cannot use `$HOME` area for installation but any non-`afs` areas can work including `/gpfs`.
+    2. As a specific case of 1, you can use `pip install --user` (covered below).
+    3. Build your own `singularity` image with custom software stack (covered below).
+
+**Q: How can I use `pip` to install additional software?**
+  * `pip install` commands by default attempts to install a software under system paths, which require you to have an admin priviledge (and you don't have it on OOD). You can instead use `--user` option flag to install your package under your user area, namely `$HOME/.local`. But recall your `$HOME` is `afs` area and you cannot install there. The trick is to separately prepare an installation destination somewhere else, then make `$HOME/.local` a symbolic link pointing to it. Here's an example:
+    * If don't need to keep `$HOME/.local` or not sure whether this exists:
+    ```
+    rm -rf $HOME/.local
+  	mkdir -p /gpfs/slac/staas/fs1/g/neutrino/$USER/python_libs
+    ln -s /gpfs/slac/staas/fs1/g/neutrino/$USER/python_libs $HOME/.local
+    ```
+    * If you have `$HOME/.local` already and want to keep it:
+    ```
+    mv $HOME/.local /gpfs/slac/staas/fs1/g/neutrino/$USER/python_libs
+    ln -s /gpfs/slac/staas/fs1/g/neutrino/$USER/python_libs $HOME/.local
+    ```
+
+
+**Q: Can I use my own `singularity` image?**
   * Yep. On the drop-down menu of "**Jupyter Instance**", you should seee "Custom Singularity Image". Choose that. Then you should see "**Commands to initiate Jupyter**" text area editable. There, you can type the commands that are executed by the ondemand process within your job. For instance, below is what's set for the `neutrino-jupyter/ub18.04-cuda10.2-extra` image. You see `$SINGULARITY_IMAGE_PATH` is set, and you can change that path to your image path to launch a session with your own image.
   ```
   $> export SINGULARITY_IMAGE_PATH=/gpfs/slac/staas/fs1/g/neutrino/images/larcv2_ub18.04-cuda10.2-extra.sif
