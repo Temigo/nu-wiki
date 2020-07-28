@@ -2,7 +2,7 @@
 title: Computing Accounts
 description: 
 published: true
-date: 2020-07-28T04:26:47.496Z
+date: 2020-07-28T20:56:01.058Z
 tags: 
 ---
 
@@ -16,7 +16,10 @@ There are two types of accounts: **unix** and **windows**.
 
 ### How to request an account?
 * **Step 1.1**: request SLAC user account (called SLUO). I put [instructions here](/guides/sluo-howto). This may take some time (a few days to a week), so submit asap!
-* **Step 1.2**: once the request is approved, you should receive an email notifying that and your "system ID". Contact [Kazu](mailto:kterao@slac.stanford.edu) that your SLUO account is ready and inform this system ID. A computing account request will be followed up.
+* **Step 1.2**: once the request is approved, you should receive an email notifying that and your "system ID". Contact [Kazu](mailto:kterao@slac.stanford.edu) with following information:
+  * Your system ID
+  * Name of your home institution
+  * **TWO** preferred unix user account name to be created for you, in the order of preference. Your account name may contain digits 0-9, lower-case letters a-z, and the special character "-". Must begin with a lower-case letter a-z. Must not be shorter than 3 or longer than 8 characters.
 
 ### To-do's after getting an account
 * Make sure you complete the cyber security training, or your account will be disabled soon.
