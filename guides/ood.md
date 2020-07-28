@@ -2,7 +2,7 @@
 title: Open On-Demand
 description: 
 published: true
-date: 2020-07-28T15:39:16.680Z
+date: 2020-07-28T15:41:11.093Z
 tags: 
 ---
 
@@ -82,7 +82,7 @@ For questions about the configuration options, look at the FAQs at the bottom of
     mv $HOME/.local /gpfs/slac/staas/fs1/g/neutrino/$USER/python_libs
     ln -s /gpfs/slac/staas/fs1/g/neutrino/$USER/python_libs $HOME/.local
     ```
-
+	... by doing this, when `pip` attempts to install a software under `$HOME/.local`, it actually installs in the destination path which is under `/gpfs`. This avoids causing an error from attempting to write under `afs` mounted storage area such as `$HOME`.
 
 **Q: Can I use my own `singularity` image?**
   * Yep. On the drop-down menu of "**Jupyter Instance**", you should seee "Custom Singularity Image". Choose that. Then you should see "**Commands to initiate Jupyter**" text area editable. There, you can type the commands that are executed by the ondemand process within your job. For instance, below is what's set for the `neutrino-jupyter/ub18.04-cuda10.2-extra` image. You see `$SINGULARITY_IMAGE_PATH` is set, and you can change that path to your image path to launch a session with your own image.
