@@ -2,7 +2,7 @@
 title: Computing Accounts
 description: 
 published: true
-date: 2020-07-23T16:57:55.377Z
+date: 2020-07-28T04:26:47.496Z
 tags: 
 ---
 
@@ -15,7 +15,7 @@ There are two types of accounts: **unix** and **windows**.
 **Windows** account is used for emails, scheduler apps, HR websites, travel request/report, IT service ticket, etc.. If you are a SLAC employee, you need this. If you are a non-SLAC collaborator, you might not need this.
 
 ### How to request an account?
-* **Step 1.1**: request SLAC user account (called SLUO). Go to this [page](https://www-group.slac.stanford.edu/sluo/) and follow the hyperlink "SLUO User Information Form" to submit your request. Contact [Kazu](mailto:kterao@slac.stanford.edu) that you submitted a request.
+* **Step 1.1**: request SLAC user account (called SLUO). I put [instructions here](/guides/sluo-howto). This may take some time (a few days to a week), so submit asap!
 * **Step 1.2**: once the request is approved, you should receive an email notifying that and your "system ID". Contact [Kazu](mailto:kterao@slac.stanford.edu) that your SLUO account is ready and inform this system ID. A computing account request will be followed up.
 
 ### To-do's after getting an account
