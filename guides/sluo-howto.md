@@ -2,7 +2,7 @@
 title: SLUO Account Request 
 description: 
 published: true
-date: 2020-07-28T04:28:23.998Z
+date: 2020-08-07T16:32:46.625Z
 tags: 
 ---
 
@@ -21,7 +21,7 @@ You can use your best guess on all questions asked in the account request form. 
 
 **Then on the 2nd page**...
 *  For "SLAC Spokesperson/Sponsor/Supervisor ...", "Kazuhiro Terao"
-*  The section "NON US CITIZENS", you don't have to enter anything unless you have US visa. 
+*  The section "NON US CITIZENS", you don't have to enter anything unless you have US visa. No worries, though there's asterisk, it does not mean it is required. If you do have visa, fill all fields. If you don't, do not fill any field in this section. 
 *  For "Starting Date", please enter today's date
 *  For "Funding Source", please choose "DOE"
 *  For "How long will you...", please choose "FIXED TERM", then set the starting date today to 1 year
