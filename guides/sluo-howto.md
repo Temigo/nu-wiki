@@ -2,7 +2,7 @@
 title: SLUO Account Request 
 description: 
 published: true
-date: 2020-08-07T16:32:46.625Z
+date: 2020-08-07T16:42:08.978Z
 tags: 
 ---
 
@@ -20,12 +20,13 @@ You can use your best guess on all questions asked in the account request form. 
 *  For "Experiment you will be working on", you can choose "Deep Underground Neutrino Experiment"
 
 **Then on the 2nd page**...
-*  For "SLAC Spokesperson/Sponsor/Supervisor ...", "Kazuhiro Terao"
-*  The section "NON US CITIZENS", you don't have to enter anything unless you have US visa. No worries, though there's asterisk, it does not mean it is required. If you do have visa, fill all fields. If you don't, do not fill any field in this section. 
-*  For "Starting Date", please enter today's date
-*  For "Funding Source", please choose "DOE"
-*  For "How long will you...", please choose "FIXED TERM", then set the starting date today to 1 year
-*  For "What percent of time...", please choose "<10%" unless you work at SLAC.
+*  For "**SLAC Spokesperson/Sponsor/Supervisor** ...", "Kazuhiro Terao"
+*  The section "**NON US CITIZENS**", you don't have to enter anything unless you have US visa. No worries, though there's asterisk, it does not mean it is required. If you do have visa, fill all fields. If you don't, do not fill any field in this section. 
+*  For "**Starting Date**", please enter today's date
+*  For "**SLAC Deapartment**", please choose "EPP Neutrino"
+*  For "**Funding Source**", please choose "DOE"
+*  For "**How long will you**...", please choose "FIXED TERM", then set the starting date today to 1 year
+*  For "**What percent of time**...", please choose "<10%" unless you work at SLAC.
 
 **After the submission**...
 *  You may be asked to submit a CV listing your education (from college onwards) and employment record. Please note this cannot have >=1 year gap in the record since the college graduation. This is not for a job application and your employement history and education records are all what matters :)
