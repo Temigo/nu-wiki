@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-08-27T00:54:36.504Z
+date: 2020-08-27T00:54:56.697Z
 tags: 
 ---
 
@@ -171,3 +171,5 @@ For better results the chain should be trained step by step. The order is usuall
 3. CNN clustering (if applicable) followed by GNN clustering of tracks
 4. GNN clustering for EM showers
 5. Interaction clustering (GNN again)
+
+3. and 4. can be done in parallel.
