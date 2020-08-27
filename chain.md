@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-08-27T00:28:55.418Z
+date: 2020-08-27T00:29:55.475Z
 tags: 
 ---
 
@@ -30,6 +30,16 @@ Dominé, Laura, Kazuhiro Terao, and DeepLearnPhysics Collaboration. "Scalable de
   pages={012005},
   year={2020},
   publisher={APS}
+}
+
+```
+Koh, Dae Heun, et al. "Scalable, Proposal-free Instance Segmentation Network for 3D Pixel Clustering and Particle Trajectory Reconstruction in Liquid Argon Time Projection Chambers." arXiv preprint arXiv:2007.03083 (2020).
+```
+@article{koh2020scalable,
+  title={Scalable, Proposal-free Instance Segmentation Network for 3D Pixel Clustering and Particle Trajectory Reconstruction in Liquid Argon Time Projection Chambers},
+  author={Koh, Dae Heun and de Soux, Pierre C{\^o}te and Domin{\'e}, Laura and Drielsma, Fran{\c{c}}ois and Itay, Ran and Lin, Qing and Terao, Kazuhiro and Tsang, Ka Vang and Usher, Tracy},
+  journal={arXiv preprint arXiv:2007.03083},
+  year={2020}
 }
 
 ```
