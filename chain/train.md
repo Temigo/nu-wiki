@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-08-27T00:46:14.505Z
+date: 2020-08-27T00:46:31.703Z
 tags: 
 ---
 
@@ -147,13 +147,13 @@ model:
 trainval:
   seed: 144
   gpus: ''
-  weight_prefix: weights/full_chain/independent_test/snapshot
+  weight_prefix: weights/snapshot
   unwrapper: unwrap_3d_scn
   concat_result: ['fragments','frag_edge_index','frag_edge_pred','frag_node_pred','frag_group_pred','particles','inter_edge_index','inter_edge_pred']
   iterations: 100000
   report_step: 1
   checkpoint_step: 100
-  log_dir: logs/full_chain/independent_test/
+  log_dir: logs
   model_path: ''
   train: True
   debug: False
