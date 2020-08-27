@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-08-27T00:29:55.475Z
+date: 2020-08-27T00:32:41.187Z
 tags: 
 ---
 
@@ -33,12 +33,32 @@ Dominé, Laura, Kazuhiro Terao, and DeepLearnPhysics Collaboration. "Scalable de
 }
 
 ```
+Dominé, Laura, et al. "Point Proposal Network for Reconstructing 3D Particle Positions with Sub-Pixel Precision in Liquid Argon Time Projection Chambers." arXiv preprint arXiv:2006.14745 (2020).
+```
+@article{domine2020point,
+  title={Point Proposal Network for Reconstructing 3D Particle Positions with Sub-Pixel Precision in Liquid Argon Time Projection Chambers},
+  author={ Domin{\'e}, Laura and de Soux, Pierre C{\^o}te and Drielsma, Fran{\c{c}}ois and Itay, Ran and Koh, Dae Heun and Lin, Qing and Terao, Kazuhiro and Tsang, Ka Vang and Usher, Tracy},
+  journal={arXiv preprint arXiv:2006.14745},
+  year={2020}
+}
+
+```
 Koh, Dae Heun, et al. "Scalable, Proposal-free Instance Segmentation Network for 3D Pixel Clustering and Particle Trajectory Reconstruction in Liquid Argon Time Projection Chambers." arXiv preprint arXiv:2007.03083 (2020).
 ```
-@article{koh2020scalable,
+@article{CNNClustering,
   title={Scalable, Proposal-free Instance Segmentation Network for 3D Pixel Clustering and Particle Trajectory Reconstruction in Liquid Argon Time Projection Chambers},
   author={Koh, Dae Heun and de Soux, Pierre C{\^o}te and Domin{\'e}, Laura and Drielsma, Fran{\c{c}}ois and Itay, Ran and Lin, Qing and Terao, Kazuhiro and Tsang, Ka Vang and Usher, Tracy},
   journal={arXiv preprint arXiv:2007.03083},
+  year={2020}
+}
+
+```
+Drielsma, Francois, et al. "Clustering of Electromagnetic Showers and Particle Interactions with Graph Neural Networks in Liquid Argon Time Projection Chambers Data." arXiv preprint arXiv:2007.01335 (2020).
+```
+@article{drielsma2020clustering,
+  title={Clustering of Electromagnetic Showers and Particle Interactions with Graph Neural Networks in Liquid Argon Time Projection Chambers Data},
+  author={Drielsma, Francois and Lin, Qing and de Soux, Pierre C{\^o}te and Domin{\'e}, Laura and Itay, Ran and Koh, Dae Heun and Nelson, Bradley J and Terao, Kazuhiro and Tsang, Ka Vang and Usher, Tracy L},
+  journal={arXiv preprint arXiv:2007.01335},
   year={2020}
 }
 
