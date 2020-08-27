@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-08-27T00:34:56.502Z
+date: 2020-08-27T00:44:04.318Z
 tags: 
 ---
 
@@ -15,6 +15,8 @@ tags:
 6. [Vertex identification](/chain/vertex) [none]
 7. [Interaction clustering](/chain/interaction) [Qing/François]
 8. [Particle kinematics](/chain/kinematics) [Dae Heun]
+
+## [Training the full chain](/chain/train)
 
 ## [Questions and Answers](/chain/questions)
 
