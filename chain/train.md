@@ -2,12 +2,12 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-08-27T00:46:31.703Z
+date: 2020-08-27T00:50:11.409Z
 tags: 
 ---
 
-# Configuration
-An example of configuration using the model `full_chain` made by Francois:
+# Configuration (w/o ghost points)
+An example of configuration using the model `full_chain` (CNN clustering, not DBSCAN) made by Francois:
 
 ```
 iotool:
