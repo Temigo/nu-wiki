@@ -2,11 +2,11 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-08-27T00:50:11.409Z
+date: 2020-08-27T00:52:42.761Z
 tags: 
 ---
 
-# Configuration (w/o ghost points)
+## Configuration (w/o ghost points)
 An example of configuration using the model `full_chain` (CNN clustering, not DBSCAN) made by Francois:
 
 ```
@@ -162,3 +162,5 @@ trainval:
     args:
       lr: 0.001
 ```
+
+## Training step by step
