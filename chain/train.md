@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-08-27T00:52:42.761Z
+date: 2020-08-27T00:54:36.504Z
 tags: 
 ---
 
@@ -164,3 +164,10 @@ trainval:
 ```
 
 ## Training step by step
+For better results the chain should be trained step by step. The order is usually the following:
+
+1. UResNet
+2. PPN (can be combined with 1.)
+3. CNN clustering (if applicable) followed by GNN clustering of tracks
+4. GNN clustering for EM showers
+5. Interaction clustering (GNN again)
