@@ -2,11 +2,13 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:43:13.898Z
+date: 2020-09-02T18:44:29.252Z
 tags: 
 ---
 
 ## Running a standard configuration
+
+### Configuration
 An typical configuration would be the following (no ghost points, UResNet + PPN + CNN clustering + GNN clustering for showers + GNN interaction clustering):
 
 ```
@@ -201,6 +203,9 @@ To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco
 
 > TODO merge this code into `DeepLearnPhysics/lartpc_mlreco3d`
 
+Let's see what are the outputs of this configuration.
+
+### Outputs
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
