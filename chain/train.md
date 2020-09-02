@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:40:37.241Z
+date: 2020-09-02T18:42:03.449Z
 tags: 
 ---
 
@@ -42,6 +42,7 @@ iotool:
 model:
   name: ghost_chain
   modules:
+    # Global chain configuration
     chain:
       enable_uresnet: True
       enable_ppn: True
@@ -50,7 +51,15 @@ model:
       enable_gnn_int: True
       enable_ghost: False
       use_ppn_in_gnn: False
-    # Particle GNN config
+    full_chain_loss:
+      name: se_lovasz_inter
+      spatial_size: 768
+      segmentation_weight: 1.
+      clustering_weight: 1.
+      ppn_weight: 1.
+      particle_gnn_weight: 1.
+      inter_gnn_weight: 1.
+    # Shower clustering GNN config
     particle_gnn:
       node_type: 0
       node_min_size: 10
@@ -110,14 +119,6 @@ model:
       aggr: 'add'
       leakiness: 0.1
       num_mp: 3
-    full_chain_loss:
-      name: se_lovasz_inter
-      spatial_size: 768
-      segmentation_weight: 1.
-      clustering_weight: 1.
-      ppn_weight: 1.
-      particle_gnn_weight: 1.
-      inter_gnn_weight: 1.
     # CNN Clustering config
     network_base:
       spatial_size: 768
@@ -140,6 +141,7 @@ model:
       seediness_weight: 1.0
       embedding_weight: 1.0
       smoothing_weight: 1.0
+    # UResNet config
     uresnet_lonely:
       freeze: False
       num_strides: 6
@@ -150,6 +152,7 @@ model:
       ghost: False
       features: 1
       model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/uresnet_ppn/snapshot-195499.ckpt'
+    # PPN config
     ppn:
       num_strides: 6
       filters: 16
