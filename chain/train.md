@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:46:28.268Z
+date: 2020-09-02T18:59:23.646Z
 tags: 
 ---
 
@@ -208,10 +208,20 @@ To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco
 Let's see what are the outputs of this configuration.
 
 ### Outputs
-
+Assuming that the previous configuration is stored in a string `cfg`:
 ```python
-x = 1
+from mlreco.main_funcs import process_config, prepare
+cfg=yaml.load(cfg,Loader=yaml.Loader)
+# pre-process configuration (checks + certain non-specified default settings)
+process_config(cfg)
+# prepare function configures necessary "handlers"
+hs=prepare(cfg)
 ```
+We can run the full chain for one iteration using
+```python
+data, output = hs.trainer.forward(hs.data_io_iter)
+```
+Now we have access to both the input data to the network `data` and the outputs of the full chain in `output`.
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
