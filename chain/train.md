@@ -2,12 +2,12 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:39:33.436Z
+date: 2020-09-02T18:40:37.241Z
 tags: 
 ---
 
 ## Running a standard configuration
-An example of configuration would be the following:
+An typical configuration would be the following (no ghost points, UResNet + PPN + CNN clustering + GNN clustering for showers + GNN interaction clustering):
 
 ```
 iotool:
