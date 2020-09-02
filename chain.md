@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-09-02T17:05:34.428Z
+date: 2020-09-02T17:07:24.003Z
 tags: 
 ---
 
@@ -27,6 +27,11 @@ TODO: make sure each page below is up to date.
 Diagram, movie?
 
 ## 2. [Training the full chain](/chain/train)
+If you want to see...
+- a standard configuration, what are the outputs, how to interprete and visualize them,
+- different configuration options and how they differ in reconstruction performance output,
+- how to train the full chain,
+Please visit [this page](/chain/train).
 
 ## [Questions and Answers](/chain/questions)
 Questions commonly asked abour our work and some examples of proper answers.
