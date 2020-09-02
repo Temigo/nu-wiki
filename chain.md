@@ -2,12 +2,18 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-09-02T17:03:56.028Z
+date: 2020-09-02T17:05:04.496Z
 tags: 
 ---
 
 ## What is the full reco chain?
+Explain in English here.
+
 ### Reconstruction stages
+For each stage, click on the link to see more performance plots and benchmark numbers.
+
+TODO: make sure each page below is up to date.
+
 1. [UResNet](/chain/uresnet) [Laura/Patrick]
 2. [PPN](/chain/ppn) [Laura/Patrick]
 3. [Dense clustering](/chain/clustering/dense) [Dae Heun]
