@@ -2,11 +2,12 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-08-27T01:04:26.257Z
+date: 2020-09-02T17:03:56.028Z
 tags: 
 ---
 
-## Reconstruction stages
+## What is the full reco chain?
+### Reconstruction stages
 1. [UResNet](/chain/uresnet) [Laura/Patrick]
 2. [PPN](/chain/ppn) [Laura/Patrick]
 3. [Dense clustering](/chain/clustering/dense) [Dae Heun]
@@ -15,6 +16,9 @@ tags:
 6. [Vertex identification](/chain/vertex) [none]
 7. [Interaction clustering](/chain/interaction) [Qing/François]
 8. [Particle kinematics](/chain/kinematics) [Dae Heun]
+
+### Others
+Diagram, movie?
 
 ## [Training the full chain](/chain/train)
 
@@ -66,10 +70,6 @@ Drielsma, Francois, et al. "Clustering of Electromagnetic Showers and Particle I
 }
 
 ```
-
-## Full chain diagram
-
-## Full chain movie
 
 ## Event displays
 > File: `/gpfs/slac/staas/fs1/g/neutrino/ldomine/.scn_paper/shower_relabel/test_768px.root`
