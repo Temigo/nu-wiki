@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T22:17:53.527Z
+date: 2020-09-02T23:30:11.455Z
 tags: 
 ---
 
@@ -50,6 +50,7 @@ model:
     chain:
       enable_uresnet: True
       enable_ppn: True
+      enable_cnn_clust: True
       enable_gnn_shower: True
       enable_gnn_tracks: False
       enable_gnn_int: True
