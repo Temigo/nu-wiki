@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:37:44.250Z
+date: 2020-09-02T18:38:27.885Z
 tags: 
 ---
 
@@ -163,6 +163,8 @@ trainval:
       lr: 0.001
 ```
 To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco3d` on the branch `temigo`.
+
+> TODO merge this code into `DeepLearnPhysics/lartpc_mlreco3d`
 
 
 ## Training step by step
