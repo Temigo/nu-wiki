@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:44:29.252Z
+date: 2020-09-02T18:45:45.932Z
 tags: 
 ---
 
@@ -10,6 +10,8 @@ tags:
 
 ### Configuration
 An typical configuration would be the following (no ghost points, UResNet + PPN + CNN clustering + GNN clustering for showers + GNN interaction clustering):
+
+> TODO update weights to use `weights_noghost_chain0`
 
 ```
 iotool:
