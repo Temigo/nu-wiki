@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:59:23.646Z
+date: 2020-09-02T22:17:53.527Z
 tags: 
 ---
 
@@ -222,6 +222,8 @@ We can run the full chain for one iteration using
 data, output = hs.trainer.forward(hs.data_io_iter)
 ```
 Now we have access to both the input data to the network `data` and the outputs of the full chain in `output`.
+
+> TODO link here to Jupyter notebook showing outputs for ghost/noghost
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
