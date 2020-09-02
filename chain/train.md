@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:45:45.932Z
+date: 2020-09-02T18:46:28.268Z
 tags: 
 ---
 
@@ -208,6 +208,10 @@ To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco
 Let's see what are the outputs of this configuration.
 
 ### Outputs
+
+```python
+x = 1
+```
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
