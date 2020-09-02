@@ -2,12 +2,12 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-08-27T00:56:33.545Z
+date: 2020-09-02T18:37:44.250Z
 tags: 
 ---
 
-## Configuration (w/o ghost points)
-An example of configuration using the model `full_chain` (CNN clustering, not DBSCAN) made by Francois:
+## Running a standard configuration
+An example of configuration would be the following:
 
 ```
 iotool:
@@ -162,6 +162,8 @@ trainval:
     args:
       lr: 0.001
 ```
+To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco3d` on the branch `temigo`.
+
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
