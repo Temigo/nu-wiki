@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-09-02T17:07:24.003Z
+date: 2020-09-02T17:07:31.281Z
 tags: 
 ---
 
@@ -31,6 +31,7 @@ If you want to see...
 - a standard configuration, what are the outputs, how to interprete and visualize them,
 - different configuration options and how they differ in reconstruction performance output,
 - how to train the full chain,
+
 Please visit [this page](/chain/train).
 
 ## [Questions and Answers](/chain/questions)
