@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T18:38:27.885Z
+date: 2020-09-02T18:39:33.436Z
 tags: 
 ---
 
@@ -16,31 +16,132 @@ iotool:
   num_workers: 4
   collate_fn: CollateSparse
   sampler:
+    batch_size: 32
     name: RandomSequenceSampler
   dataset:
     name: LArCVDataset
     data_keys:
       - /gpfs/slac/staas/fs1/g/neutrino/kterao/data/mpvmpr_2020_01_v04/train.root
-    limit_num_files: 1
+    limit_num_files: 10
     schema:
       input_data:
         - parse_sparse3d_scn
         - sparse3d_pcluster
-      cluster_labels:
+      segment_label:
+        - parse_sparse3d_scn
+        - sparse3d_pcluster_semantics
+      cluster_label:
         - parse_cluster3d_clean_full
         - cluster3d_pcluster
         - particle_pcluster
         - sparse3d_pcluster_semantics
-      ppn_labels:
+      particles_label:
         - parse_particle_points
         - sparse3d_pcluster
-        - particle_pcluster
+        - particle_corrected
 model:
-  name: full_chain
+  name: ghost_chain
   modules:
+    chain:
+      enable_uresnet: True
+      enable_ppn: True
+      enable_gnn_shower: True
+      enable_gnn_tracks: False
+      enable_gnn_int: True
+      enable_ghost: False
+      use_ppn_in_gnn: False
+    # Particle GNN config
+    particle_gnn:
+      node_type: 0
+      node_min_size: 10
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/cluster_full_gnn/dbscan/snapshot-36199.ckpt'
+      model_name: 'chain.edge_predictor'
+    dbscan:
+      epsilon: 1.999
+      minPoints: 1
+      num_classes: 5
+      data_dim: 3
+    node_encoder:
+      name: 'geo'
+      use_numpy: True
+    edge_encoder:
+      name: 'geo'
+      use_numpy: True
+    particle_edge_model:
+      name: modular_meta
+      edge_feats: 19
+      node_feats: 16 #22 #w/ start point and direction
+      node_classes: 2
+      edge_classes: 2
+      node_output_feats: 64
+      edge_output_feats: 64
+      aggr: 'add'
+      leakiness: 0.1
+      num_mp: 3
+    # Interaction GNN config
+    interaction_gnn:
+      node_type: -1
+      node_min_size: 10
+      network: 'complete'
+      edge_max_dist: -1
+      edge_dist_metric: 'set'
+      edge_dist_numpy: False #True
+      add_start_point: False #True
+      add_start_dir: True
+      start_dir_max_dist: 5
+      group_pred: 'score'
+      loss: 'CE'
+      reduction: 'sum'
+      balance_classes: False
+      target: 'group'
+      source_col: 6
+      target_col: 7
+      high_purity: True
+      #model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/cluster_full_gnn/dbscan/snapshot-36199.ckpt'
+      #model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/weights_shower_clustering0/snapshot--21749.ckpt'
+    interaction_edge_model:
+      name: modular_meta
+      edge_feats: 19
+      node_feats: 28 #w/ start point and direction
+      node_classes: 2
+      edge_classes: 2
+      node_output_feats: 64
+      edge_output_feats: 64
+      aggr: 'add'
+      leakiness: 0.1
+      num_mp: 3
+    full_chain_loss:
+      name: se_lovasz_inter
+      spatial_size: 768
+      segmentation_weight: 1.
+      clustering_weight: 1.
+      ppn_weight: 1.
+      particle_gnn_weight: 1.
+      inter_gnn_weight: 1.
+    # CNN Clustering config
+    network_base:
+      spatial_size: 768
+      data_dim: 3
+      features: 4
+      leakiness: 0.33
+    spatial_embeddings:
+      seediness_dim: 1
+      sigma_dim: 1
+      embedding_dim: 3
+      coordConv: True
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/koh0207/weights/SCN/new_labels/final2/with_seed/snapshot-71499.ckpt'
+    uresnet:
+      filters: 64
+      input_kernel_size: 7
+      num_strides: 7
+      reps: 2
+    clustering_loss:
+      name: se_lovasz_inter
+      seediness_weight: 1.0
+      embedding_weight: 1.0
+      smoothing_weight: 1.0
     uresnet_lonely:
-      model_path: 'weights/full_chain/uresnet_ppn/snapshot-195499.ckpt'
-      #freeze_weights: True
+      freeze: False
       num_strides: 6
       filters: 16
       num_classes: 5
@@ -48,9 +149,8 @@ model:
       spatial_size: 768
       ghost: False
       features: 1
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/uresnet_ppn/snapshot-195499.ckpt'
     ppn:
-      model_path: 'weights/full_chain/uresnet_ppn/snapshot-195499.ckpt'
-      #freeze_weights: True
       num_strides: 6
       filters: 16
       num_classes: 5
@@ -58,105 +158,37 @@ model:
       downsample_ghost: False
       use_encoding: False
       ppn_num_conv: 1
+      #weight_seg: 5.0
+      weight_ppn: 0.9
       score_threshold: 0.5
       ppn1_size: 24
       ppn2_size: 96
       spatial_size: 768
-    network_base:
-      model_path: 'weights/full_chain/cluster_cnn/snapshot-55199.ckpt'
-      spatial_size: 768
-      data_dim: 3
-      features: 4
-      leakiness: 0.33
-    spatial_embeddings:
-      model_path: 'weights/full_chain/cluster_cnn/snapshot-55199.ckpt'
-      seediness_dim: 1
-      sigma_dim: 1
-      embedding_dim: 3
-      coordConv: True
-    uresnet:
-      model_path: 'weights/full_chain/cluster_cnn/snapshot-55199.ckpt'
-      filters: 64
-      input_kernel_size: 7
-      num_strides: 6
-      reps: 2
-    clustering_loss:
-      name: se_lovasz_inter
-      seediness_weight: 1.0
-      embedding_weight: 1.0
-      smoothing_weight: 1.0
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/uresnet_ppn/snapshot-195499.ckpt'
     fragment_clustering:
-      s_thresholds: [0.8, 0.9, 0.55, 0.8]
-      p_thresholds: [0.13, 0.24, 0.48, 0.48]
-      cluster_all : False
-    node_encoder:
-      name: 'geo'
-      use_numpy: True
-    edge_encoder:
-      name: 'geo'
-      use_numpy: True
-    particle_gnn:
-      model_path: 'weights/full_chain/part_gnn_only/snapshot-24999.ckpt'
-      node_type: 0
-      node_min_size: 10
-    interaction_gnn:
-      model_path: 'weights/full_chain/inter_gnn_only/snapshot-17999.ckpt'
-      node_type: -1
-      node_min_size: 10
-      source_col: 6
-      target_col: 7
-    particle_edge_model:
-      name: modular_nnconv
-      edge_feats: 19
-      node_feats: 22
-      edge_output_feats: 64
-      node_output_feats: 64
-      node_classes: 2
-      edge_classes: 2
-      aggr: 'add'
-      leak: 0.1
-      num_mp: 3
-    interaction_edge_model:
-      name: modular_nnconv
-      edge_feats: 19
-      node_feats: 28
-      edge_output_feats: 64
-      node_output_feats: 64
-      node_classes: 2
-      edge_classes: 2
-      aggr: 'add'
-      leak: 0.1
-      num_mp: 3
-    full_chain:
-      merge_batch: False
-      merge_batch_mode: 'const'
-      merge_batch_size: 4
-    full_chain_loss:
-      name: se_lovasz_inter
-      spatial_size: 768
-      segmentation_weight: 1.0
-      ppn_weight: 1.0
-      clustering_weight: 1.0
-      particle_gnn_weight: 1.0
-      interaction_gnn_weight: 1.0
+      s_thresholds: [0., 0., 0., 0.35]
+      p_thresholds: [0.95, 0.95, 0.95, 0.95]
+      cluster_all: False
   network_input:
     - input_data
   loss_input:
-    - cluster_labels
-    - ppn_labels
+    - segment_label
+    - cluster_label
+    - particles_label
 trainval:
-  seed: 144
-  gpus: ''
-  weight_prefix: weights/snapshot
+  seed: 123
   unwrapper: unwrap_3d_scn
-  concat_result: ['fragments','frag_edge_index','frag_edge_pred','frag_node_pred','frag_group_pred','particles','inter_edge_index','inter_edge_pred']
-  iterations: 100000
+  concat_result: ['seediness', 'margins', 'embeddings', 'fragments','frag_edge_index','frag_edge_pred','frag_node_pred','frag_group_pred','particles','inter_edge_index','inter_edge_pred']
+  gpus: '0'
+  weight_prefix: ./weights_trash/snapshot
+  iterations: 2000
   report_step: 1
   checkpoint_step: 100
-  log_dir: logs
   model_path: ''
+  log_dir: ./log_trash
   train: True
   debug: False
+  minibatch_size: -1
   optimizer:
     name: Adam
     args:
