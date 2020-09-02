@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-09-02T17:07:31.281Z
+date: 2020-09-02T17:07:40.613Z
 tags: 
 ---
 
@@ -34,10 +34,10 @@ If you want to see...
 
 Please visit [this page](/chain/train).
 
-## [Questions and Answers](/chain/questions)
+## 3. [Questions and Answers](/chain/questions)
 Questions commonly asked abour our work and some examples of proper answers.
 
-## Citations
+## 4. Citations
 Dominé, Laura, Kazuhiro Terao, and DeepLearnPhysics Collaboration. "Scalable deep convolutional neural networks for sparse, locally dense liquid argon time projection chamber data." Physical Review D 102.1 (2020): 012005.
 ```
 @article{SSCN,
