@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-02T23:30:11.455Z
+date: 2020-09-03T00:45:49.475Z
 tags: 
 ---
 
@@ -70,11 +70,20 @@ model:
       node_min_size: 10
       model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/cluster_full_gnn/dbscan/snapshot-36199.ckpt'
       model_name: 'chain.edge_predictor'
-    dbscan:
-      epsilon: 1.999
-      minPoints: 1
-      num_classes: 5
-      data_dim: 3
+    dbscan_frag:
+      dim: 3
+      eps: [1.999, 3.999, 1.999, 4.999]
+      min_samples: 1
+      min_size: [10,3,3,3]
+      num_classes: 4 # Ignores LE
+      track_label: 1
+      michel_label: 2
+      delta_label: 3
+      track_clustering_method: 'closest_path' # masked_dbscan, closest_path
+      ppn_score_threshold: 0.9
+      ppn_type_threshold: 0.3
+      ppn_distance_threshold: 1.999
+      ppn_mask_radius: 5
     node_encoder:
       name: 'geo'
       use_numpy: True
