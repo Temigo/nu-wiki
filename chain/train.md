@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-03T05:31:29.778Z
+date: 2020-09-03T05:31:42.221Z
 tags: 
 ---
 
@@ -151,6 +151,7 @@ model:
       input_kernel_size: 7
       num_strides: 7
       reps: 2
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/koh0207/weights/SCN/new_labels/final2/with_seed/snapshot-71499.ckpt'
     clustering_loss:
       name: se_lovasz_inter
       seediness_weight: 1.0
