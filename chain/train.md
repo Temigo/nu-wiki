@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-03T00:45:49.475Z
+date: 2020-09-03T05:31:29.778Z
 tags: 
 ---
 
@@ -145,6 +145,7 @@ model:
       embedding_dim: 3
       coordConv: True
       model_path: '/gpfs/slac/staas/fs1/g/neutrino/koh0207/weights/SCN/new_labels/final2/with_seed/snapshot-71499.ckpt'
+      model_name: ''
     uresnet:
       filters: 64
       input_kernel_size: 7
