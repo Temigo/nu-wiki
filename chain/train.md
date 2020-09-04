@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-04T16:20:32.908Z
+date: 2020-09-04T16:26:45.661Z
 tags: 
 ---
 
@@ -198,7 +198,7 @@ trainval:
   iterations: 2000
   report_step: 1
   checkpoint_step: 100
-  model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/weights_chain2/snapshot-3499.ckpt'
+  model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/weights_noghost1/snapshot-4999.ckpt'
   log_dir: ./log_trash
   train: True
   debug: False
