@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-04T16:26:45.661Z
+date: 2020-09-04T16:30:23.250Z
 tags: 
 ---
 
@@ -231,6 +231,66 @@ data, output = hs.trainer.forward(hs.data_io_iter)
 Now we have access to both the input data to the network `data` and the outputs of the full chain in `output`.
 
 > Jupyter notebooks visualizing outputs for ghost/noghost: see for now `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_Ghost.ipynb` and `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_NoGhost.ipynb`.
+
+### Analysis / Inference
+Available post-processing scripts to record metrics on all stages of the chain at the same time:
+
+```
+post_processing:
+  cluster_gnn_metrics:
+    ghost: True
+    store_method:
+      - per-iteration
+      - per-iteration
+      #- per-iteration
+    clusts:
+      - particles
+      - fragments
+      #- track_fragments
+    edge_pred:
+      - inter_edge_pred
+      - frag_edge_pred
+      #- track_edge_pred
+    edge_index:
+      - inter_edge_index
+      - frag_edge_index
+      #- track_edge_index
+    column:
+      - 7
+      - 6
+      #- 6
+    chain:
+      - interaction_gnn
+      - particle_gnn
+      #- track_gnn
+    filename:
+      - cluster-gnn-metrics-inter
+      - cluster-gnn-metrics-shower
+      #- cluster-gnn-metrics-track
+  uresnet_metrics:
+    store_method: per-iteration
+    num_classes: 5
+  deghosting_metrics:
+    store_method: per-iteration
+    method: '5+2'
+  ppn_metrics:
+    store_method: per-iteration
+    num_classes: 5
+    mode: select
+  cluster_cnn_metrics:
+    store_method: per-iteration
+    ghost: True
+    p_thresholds:
+      - 0.95
+      - 0.95
+      - 0.95
+      - 0.95
+    s_thresholds:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.35
+```
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
