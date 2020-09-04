@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-03T05:31:42.221Z
+date: 2020-09-04T16:20:17.110Z
 tags: 
 ---
 
@@ -10,8 +10,6 @@ tags:
 
 ### Configuration
 An typical configuration would be the following (no ghost points, UResNet + PPN + CNN clustering + GNN clustering for showers + GNN interaction clustering):
-
-> TODO update weights to use `weights_noghost_chain0`
 
 ```
 iotool:
@@ -68,8 +66,7 @@ model:
     particle_gnn:
       node_type: 0
       node_min_size: 10
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/cluster_full_gnn/dbscan/snapshot-36199.ckpt'
-      model_name: 'chain.edge_predictor'
+      #model_path: ''
     dbscan_frag:
       dim: 3
       eps: [1.999, 3.999, 1.999, 4.999]
@@ -93,7 +90,7 @@ model:
     particle_edge_model:
       name: modular_meta
       edge_feats: 19
-      node_feats: 16 #22 #w/ start point and direction
+      node_feats: 16 #24 #w/ start point and direction
       node_classes: 2
       edge_classes: 2
       node_output_feats: 64
@@ -120,8 +117,7 @@ model:
       source_col: 6
       target_col: 7
       high_purity: True
-      #model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/cluster_full_gnn/dbscan/snapshot-36199.ckpt'
-      #model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/weights_shower_clustering0/snapshot--21749.ckpt'
+      #model_path: ''
     interaction_edge_model:
       name: modular_meta
       edge_feats: 19
@@ -144,14 +140,13 @@ model:
       sigma_dim: 1
       embedding_dim: 3
       coordConv: True
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/koh0207/weights/SCN/new_labels/final2/with_seed/snapshot-71499.ckpt'
-      model_name: ''
+      #model_path: ''
     uresnet:
       filters: 64
       input_kernel_size: 7
       num_strides: 7
       reps: 2
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/koh0207/weights/SCN/new_labels/final2/with_seed/snapshot-71499.ckpt'
+      #model_path: ''
     clustering_loss:
       name: se_lovasz_inter
       seediness_weight: 1.0
@@ -167,7 +162,7 @@ model:
       spatial_size: 768
       ghost: False
       features: 1
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/uresnet_ppn/snapshot-195499.ckpt'
+      #model_path: ''
     # ---- PPN config -----
     ppn:
       num_strides: 6
@@ -183,7 +178,7 @@ model:
       ppn1_size: 24
       ppn2_size: 96
       spatial_size: 768
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/drielsma/clustering/train/prod_meta/weights/uresnet_ppn/snapshot-195499.ckpt'
+      #model_path: ''
     fragment_clustering:
       s_thresholds: [0., 0., 0., 0.35]
       p_thresholds: [0.95, 0.95, 0.95, 0.95]
@@ -203,7 +198,7 @@ trainval:
   iterations: 2000
   report_step: 1
   checkpoint_step: 100
-  model_path: ''
+  model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/weights_chain2/snapshot-3499.ckpt'
   log_dir: ./log_trash
   train: True
   debug: False
@@ -215,7 +210,7 @@ trainval:
 ```
 To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco3d` on the branch `temigo`.
 
-> TODO merge this code into `DeepLearnPhysics/lartpc_mlreco3d`
+> IN PROGRESS merge this code into `DeepLearnPhysics/lartpc_mlreco3d`
 
 Let's see what are the outputs of this configuration.
 
@@ -235,7 +230,7 @@ data, output = hs.trainer.forward(hs.data_io_iter)
 ```
 Now we have access to both the input data to the network `data` and the outputs of the full chain in `output`.
 
-> TODO link here to Jupyter notebook showing outputs for ghost/noghost
+> Jupyter notebooks showing outputs for ghost/noghost: see for now `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_Ghost.ipynb` and `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_NoGhost.ipynb`.
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
