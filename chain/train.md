@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-04T16:20:17.110Z
+date: 2020-09-04T16:20:32.908Z
 tags: 
 ---
 
@@ -230,7 +230,7 @@ data, output = hs.trainer.forward(hs.data_io_iter)
 ```
 Now we have access to both the input data to the network `data` and the outputs of the full chain in `output`.
 
-> Jupyter notebooks showing outputs for ghost/noghost: see for now `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_Ghost.ipynb` and `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_NoGhost.ipynb`.
+> Jupyter notebooks visualizing outputs for ghost/noghost: see for now `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_Ghost.ipynb` and `/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/Output_Chain_NoGhost.ipynb`.
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
