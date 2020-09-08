@@ -2,7 +2,7 @@
 title: Using Fuse+SSHFS to mount your SDF home remotely 
 description: 
 published: true
-date: 2020-09-08T18:39:42.157Z
+date: 2020-09-08T18:41:59.478Z
 tags: 
 ---
 
@@ -62,3 +62,5 @@ $ sudo chown $USER /sdf
 $ sshfs YOUR_USER@sdf-login.slac.stanford.edu:/sdf/home/YOUR_HOME /sdf
 ```
 where `YOUR_USER` is your login username, and you need to figure out what is `YOUR_HOME` in SDF. A way to find out is to log onto [OnDemand](https://ondemand-dev.slac.stanford.edu), click on the tab `Clusters > SDF Shell Access`, enter your password and type `pwd`.
+
+Now you can for example put your code in your SDF home, and edit from your computer by opening `/sdf/your_code` in your favorite code editor. Enjoy! (and please report if there are inaccuracies in this page)
