@@ -2,7 +2,7 @@
 title: Open On-Demand
 description: 
 published: true
-date: 2020-09-08T16:58:55.544Z
+date: 2020-09-08T18:19:35.829Z
 tags: 
 ---
 
@@ -20,7 +20,7 @@ This page explains how to launch your Jupyterlab interactive development environ
 >   $> mkdir -p /gpfs/slac/staas/fs1/g/neutrino/$USER
 >   ```
 
->**Step 1**: go to [SLAC ondemand](https://ondemand-sdf.slac.stanford.edu) + log in with your SLAC Windows username. To check if you have an Windows account (+ automatically request if you don't have one), [go here](https://oraweb.slac.stanford.edu/apex/slac/f?p=136).
+>**Step 1**: go to [SLAC ondemand](https://ondemand-dev.slac.stanford.edu/) + log in with your SLAC Windows username. To check if you have an Windows account (+ automatically request if you don't have one), [go here](https://oraweb.slac.stanford.edu/apex/slac/f?p=136).
 
 >**Step 2**: on the page-top tabs, `Interactive Apps` => `Jupyter`.
 
@@ -37,7 +37,7 @@ This page explains how to launch your Jupyterlab interactive development environ
 
 >* **Step 4**: launch your job by clicking **Launch** button!
 
-After the last step, you should be automatically re-directed to a space that lists your live interactive sessions. Or you can follow, on the [SLAC ondemand](https://ondemand-sdf.slac.stanford.edu) webpage, you can follow the top tab saying "[My Interactive Sessions](https://ondemand-sdf.slac.stanford.edu/pun/sys/dashboard/batch_connect/sessions)". You can launch multiple `Jupyter` instances and they will be all listed here. They will last till your lifetime (i.e. what you set in configuration) expires or the system crashes.
+After the last step, you should be automatically re-directed to a space that lists your live interactive sessions. Or you can follow, on the [SLAC ondemand](https://ondemand-dev.slac.stanford.edu/) webpage, you can follow the top tab saying "[My Interactive Sessions](https://ondemand-sdf.slac.stanford.edu/pun/sys/dashboard/batch_connect/sessions)". You can launch multiple `Jupyter` instances and they will be all listed here. They will last till your lifetime (i.e. what you set in configuration) expires or the system crashes.
 
 **If you are done with your job, click "Delete" button** to release computing resources taken by your job, so it becomes available to others.
 
