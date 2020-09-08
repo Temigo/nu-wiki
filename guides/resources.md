@@ -2,12 +2,12 @@
 title: Resources
 description: 
 published: true
-date: 2020-07-23T22:30:14.610Z
+date: 2020-09-08T17:28:44.726Z
 tags: 
 ---
 
 # Overview
-We break down "how to use SLAC computing?" into 4 steps/categories...
+Computing resources are made available at SLAC Data Facility (SDF). The [official documentation of SDF](https://ondemand-dev.slac.stanford.edu/public/doc/#/getting-started) is available though it is also under development still as of September 2020. This page provides a complementary (and a bit of duplicate) documentation to the official SDF one with an aim to guide neutrino users. In particular this covers 4 categories...
 
 * Gateway: how can I access computing servers for doing my work?
 * Storage: where is my space? where to keep my data files?
@@ -15,27 +15,53 @@ We break down "how to use SLAC computing?" into 4 steps/categories...
 * Scaling: how to submit batch (=unattended, automated) job to run your computing script?
 
 ## Gateway / Access
-You can access to the SLAC computing servers either from a web-browser or a terminal. These methods are complementary to each other in strengthe, and you are encouraged to try both methods at least once.
+You can access to SDF either from a web-browser or a terminal. These methods are complementary to each other in strengthe, and you are encouraged to try both methods at least once.
 
 * Access via `ssh` (a terminal-based method). 
-  * From your laptop/desktop terminal, you can access SLAC computing servers via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell). There are several gateway machines at SLAC but the most relevant one is probably `ocio-gpu01`.
+  * From your laptop/desktop terminal, you can access SDF via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell). There are several gateway machines at SLAC but the most relevant one is probably `sdf-login` and [submit slurm jobs](https://ondemand-dev.slac.stanford.edu/public/doc/#/batch-compute?id=slurm-basics).
 ```
-ssh $USER@ocio-gpu01.slac.stanford.edu
+ssh $USER@sdf-login.slac.stanford.edu
 ```
+
 * [Access via Open On-Demand](/guides/ood) (a web-browser based method)
-* [Access via Jupyterhub](/guides/jupyterhub) (a web-browser based method ... **DEPRECATED**, going away)
 
 ## Storage space 
 On each server machine, you typically have 3 types of space to work.
-* `$HOME` ... `afs` mounted servers, up to 20GB space (default 2GB, [go here](https://www.slac.stanford.edu/comp/unix/auth/afs-self.shtml) to increase for free). While you can access this space across all server machines, it is not recommended to use this space. Use `/gpfs` space below instead.
-* `/scratch` ... local RAID0 SSD space for fast read/write (no networking involved), available on most servers but files written in this space will be purged after you log out.
+* `$HOME` ... 25GB space by default.
+    * Network mounted = accessible from different machines.
 * `/gpfs` ... [GPFS](https://en.wikipedia.org/wiki/IBM_Spectrum_Scale) disk arrays (HDD), TBs, network mounted and accessible across server machines.
     * Create "your `gpfs` space" and feel free to store files underneath.
     ```
     mkdir /gpfs/slac/staas/fs1/g/neutrino/$USER
     ```
     * 10 Gbps on the host, 1 Gbps on a client.
-    * 40TB allocated for the whole neutrino group. We can expand at ~$60/TB/year ([how to](https://github.com/NuSLAC/ComputingCookbook/wiki/2.-Request-%22I-want-X%22)). Or we can purchase your dedicated GPFS server (about $70k for 500TB). Note, if you use a shared server, your network is also shared (so the speed depends on other sharing users).
+    * 40TB allocated for the whole neutrino group. We can expand at ~$60/TB/year ([how to](https://github.com/NuSLAC/ComputingCookbook/wiki/2.-Request-%22I-want-X%22)). 
+* `/lscratch` ... local RAID0 SSD space for fast read/write (no networking involved).
+  * Local disk = not accessible from different machines.
+  * Files written in this space will be purged after you log out (i.e. per job).
+  * This is `$LSCRATCH` in [official documentation](https://ondemand-dev.slac.stanford.edu/public/doc/#/getting-started?id=disk).
+  * Create "your local scratch space" and feel free to store files underneath.
+  ```
+  mkdir /lscratch/$USER
+  ```
+* `/scratch` ... global (network mounted) scratch space.
+  * Network mounted = accessible from different machines
+  * Faster than `/gpfs` but could be slower than `/lscratch`. 
+  * Purged approximately once a month. 
+	* This is `$SCRATCH` in [official documentation](https://ondemand-dev.slac.stanford.edu/public/doc/#/getting-started?id=disk).
+  * Create "your global scratch space" and feel free to store files underneath.
+  ```
+  mkdir /scratch/$USER
+  ``` 
+* `/sdf/group/neutrino` ... global (network mounted) group space.
+  * Network mounted = accessible from different machines
+  * Faster than `/gpfs` but could be slower than `/lscratch`. 
+  * No purging policy. Keep your usage < 1TB (system does not enforce this limit) 
+	* This is `$GROUP` in [official documentation](https://ondemand-dev.slac.stanford.edu/public/doc/#/getting-started?id=disk).
+  * Create "your group space" and feel free to store files underneath.
+  ```
+  mkdir /sdf/group/neutrino/$USER
+  ``` 
 
 ## Software stacks
 
