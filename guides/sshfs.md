@@ -2,18 +2,24 @@
 title: Using Fuse+SSHFS to mount your SDF home remotely 
 description: 
 published: true
-date: 2020-09-08T18:41:59.478Z
+date: 2020-09-08T18:46:52.490Z
 tags: 
 ---
 
 With the new computing system on SDF and AFS being depreciated, if you would like to mount your $HOME remotely (i.e. access it locally from your computer, for example to edit code in your favorite code editor), follow these instructions.
 
 # 0. Install Meson and Ninja
-Meson is a new open source configuration software that both fuse and sshfs rely on.
+[Meson](https://mesonbuild.com/) and [Ninja](https://ninja-build.org/) are new open-source build systems that aim at replacing Make (for Ninja) and CMake (for Meson). Both fuse and sshfs rely on them.
 ```
 $ sudo apt install meson
 ```
 will install both.
+
+>Why is it called Meson?
+
+When the name was originally chosen, there were two main limitations: there must not exist either a Debian package or a Sourceforge project of the given name. This ruled out tens of potential project names. At some point the name Gluon was considered. Gluons are elementary particles that hold protons and neutrons together, much like a build system's job is to take pieces of source code and a compiler and bind them to a complete whole.
+
+Unfortunately this name was taken, too. Then the rest of subatomic particles were examined and Meson was found to be available.
 
 # 1. Install Fuse
 Download and untar the latest release of [Fuse](https://github.com/libfuse/libfuse/releases). In this example, it is `fuse-3.9.3`:
@@ -37,22 +43,28 @@ $ ninja
 $ sudo ninja install
 ```
 
-Now try running `sshfs`. If it crashes like this:
-```
-$ sshfs                                                 
-sshfs: error while loading shared libraries: libfuse3.so.3: cannot open shared object file: No such file or directory
-```
-You might have to add a symbolic link manually or `sshfs` would fail to find `libfuse3.so.3` after installation.
-```
-$ sudo ln -s /usr/local/lib/x86_64-linux-gnu/libfuse3.so.3.9.3 /lib/x86_64-linux-gnu/libfuse3.so.3
-```
-
-A successful installation will look like:
+Now try running `sshfs`. A successful installation will look like:
 ```
 $ sshfs
 missing host
 see `sshfs -h' for usage
 ```
+> If it crashes like this:
+{.is-warning}
+>```
+>$ sshfs                                                 
+>sshfs: error while loading shared libraries: libfuse3.so.3: cannot open shared object file: No such file or directory
+>```
+>You might have to add a symbolic link manually or `sshfs` would fail to find `libfuse3.so.3` after installation.
+>```
+>$ sudo ln -s /usr/local/lib/x86_64-linux-gnu/libfuse3.so.3.9.3 /lib/x86_64-linux-gnu/libfuse3.so.3
+>```
+{.is-warning}
+
+
+
+
+
 # 3. Mount your `$HOME`
 
 Now you can mount your SDF home directory like this:
