@@ -2,7 +2,7 @@
 title: Resources
 description: 
 published: true
-date: 2020-09-08T17:28:44.726Z
+date: 2020-09-08T17:34:07.161Z
 tags: 
 ---
 
@@ -18,7 +18,7 @@ Computing resources are made available at SLAC Data Facility (SDF). The [officia
 You can access to SDF either from a web-browser or a terminal. These methods are complementary to each other in strengthe, and you are encouraged to try both methods at least once.
 
 * Access via `ssh` (a terminal-based method). 
-  * From your laptop/desktop terminal, you can access SDF via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell). There are several gateway machines at SLAC but the most relevant one is probably `sdf-login` and [submit slurm jobs](https://ondemand-dev.slac.stanford.edu/public/doc/#/batch-compute?id=slurm-basics).
+  * From your laptop/desktop terminal, you can access SDF via [secure shell (SSH)](https://en.wikipedia.org/wiki/Secure_Shell) and [submit slurm jobs](https://ondemand-dev.slac.stanford.edu/public/doc/#/batch-compute?id=slurm-basics). To log in, you need an Windows account. Use [this link](https://oraweb.slac.stanford.edu/apex/slac/f?p=136) to check if you have an Windows account + automatically request if you don't have one.
 ```
 ssh $USER@sdf-login.slac.stanford.edu
 ```
