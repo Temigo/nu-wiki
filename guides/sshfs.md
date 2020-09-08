@@ -2,7 +2,7 @@
 title: Using Fuse+SSHFS to mount your SDF home remotely 
 description: 
 published: true
-date: 2020-09-08T18:46:52.490Z
+date: 2020-09-08T18:48:03.642Z
 tags: 
 ---
 
@@ -15,11 +15,9 @@ $ sudo apt install meson
 ```
 will install both.
 
->Why is it called Meson?
-
-When the name was originally chosen, there were two main limitations: there must not exist either a Debian package or a Sourceforge project of the given name. This ruled out tens of potential project names. At some point the name Gluon was considered. Gluons are elementary particles that hold protons and neutrons together, much like a build system's job is to take pieces of source code and a compiler and bind them to a complete whole.
-
-Unfortunately this name was taken, too. Then the rest of subatomic particles were examined and Meson was found to be available.
+>Anecdote from their FAQ: *Why is it called Meson?
+>When the name was originally chosen, there were two main limitations: there must not exist either a Debian package or a Sourceforge project of the given name. This ruled out tens of potential project names. At some point the name Gluon was considered. Gluons are elementary particles that hold protons and neutrons together, much like a build system's job is to take pieces of source code and a compiler and bind them to a complete whole.
+Unfortunately this name was taken, too. Then the rest of subatomic particles were examined and Meson was found to be available.*
 
 # 1. Install Fuse
 Download and untar the latest release of [Fuse](https://github.com/libfuse/libfuse/releases). In this example, it is `fuse-3.9.3`:
@@ -50,7 +48,6 @@ missing host
 see `sshfs -h' for usage
 ```
 > If it crashes like this:
-{.is-warning}
 >```
 >$ sshfs                                                 
 >sshfs: error while loading shared libraries: libfuse3.so.3: cannot open shared object file: No such file or directory
