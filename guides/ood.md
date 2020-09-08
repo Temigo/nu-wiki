@@ -2,7 +2,7 @@
 title: Open On-Demand
 description: 
 published: true
-date: 2020-07-28T15:41:11.093Z
+date: 2020-09-08T16:57:58.093Z
 tags: 
 ---
 
@@ -14,14 +14,13 @@ This page explains how to launch your Jupyterlab interactive development environ
 ## Accessing OOD from your web-browser
 
 > **One-time preparation**: you need to do below only before the 1st time use of OOD.
->   * Log into `ocio-gpu01` (`ssh $USER@ocio-gpu01.slac.stanford.edu`)
+>   * Log into `sdf` (`ssh $USER@sdf-login.slac.stanford.edu`)
 >   * Follow the commands below
 >   ```
 >   $> mkdir -p /gpfs/slac/staas/fs1/g/neutrino/$USER
->   $> sh /gpfs/slac/staas/fs1/g/jupyter/ood/convert.sh
 >   ```
 
->**Step 1**: go to [SLAC ondemand](https://sdf.slac.stanford.edu) + log in with your unix username
+>**Step 1**: go to [SLAC ondemand](https://ondemand-sdf.slac.stanford.edu) + log in with your SLAC Windows username. To check if you have an Windows account (+ automatically request if you don't have one), [go here](https://oraweb.slac.stanford.edu/apex/slac/f?p=136).
 
 >**Step 2**: on the page-top tabs, `Interactive Apps` => `Jupyter`.
 
