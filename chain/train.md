@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:23:08.389Z
+date: 2020-12-09T02:25:30.831Z
 tags: 
 ---
 
@@ -152,6 +152,52 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
       embedding_weight: 1.0
       smoothing_weight: 1.0
       min_voxels: 2
+```
+#### 3. GNN clustering
+
+```
+    # Shower GNN config
+    grappa_shower:
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_shower_clustering1/snapshot-29499.ckpt'
+      model_name: 'particle_gnn'
+      base:
+        node_type: 0
+        node_min_size: 10
+      node_encoder:
+        name: 'geo'
+        use_numpy: True
+      edge_encoder:
+        name: 'geo'
+        use_numpy: True
+      gnn_model:
+        name: meta #modular_meta
+        edge_feats: 19
+        node_feats: 24 #16 #24 #w/ PPN
+        node_classes: 2
+        edge_classes: 2
+        node_output_feats: 64
+        edge_output_feats: 64
+        aggr: add
+        leakiness: 0.1
+        num_mp: 3
+    grappa_shower_loss:
+      node_loss:
+        name: primary
+        loss: CE
+        reduction: sum
+        balance_classes: False
+        high_purity: True
+        use_group_pred: True
+        group_pred_alg: score
+      edge_loss:
+        name: channel
+        loss: CE
+        reduction: sum
+        balance_classes: False
+        target: group
+        high_purity: True
+        source_col: 5
+        target_col: 6
 ```
 
 Let's see what are the outputs of this configuration.
