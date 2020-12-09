@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:14:44.557Z
+date: 2020-12-09T02:14:52.096Z
 tags: 
 ---
 
@@ -108,7 +108,6 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
         num_classes: 5
         data_dim: 3
         downsample_ghost: True
-        #weight_seg: 5.0
         weight_ppn: 0.9
         score_threshold: 0.5
         ppn1_size: 24
