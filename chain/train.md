@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:07:53.816Z
+date: 2020-12-09T02:14:44.557Z
 tags: 
 ---
 
@@ -84,8 +84,11 @@ model:
       verbose: False
 ```
 After that, it is time to specify the config for each block of the chain. 
-#### UResNet + PPN
+#### 1. UResNet + PPN
+This is a UResNet architecture with depth 6 (`num_strides`) and 16 initial filters (`filters`). `features` specifies how many features the input has (in this example, just one, an energy deposit for each voxel). `ghost` should be enabled if your input has ghost points and you require the "5+2" architecture (predicts a binary ghost/non-ghost mask in addition to the semantic segmentation mask). `spatial_size` defines a cube (in voxels) in which all coordinates should fit. `data_dim` is 3 since the sample is three-dimensional. `num_classes` refers to the semantic classes in your labels (not counting the label for ghost point, if applicable).
 
+In the `ppn` block, the eponymous configuration parameters should be identical to the `uresnet_lonely` block (the PPN layers feed off the UResNet network).
+`downsample_ghost` should be True if you have ghost points, False otherwise.
 ```
     # UResNet + PPN
     uresnet_ppn:
@@ -95,8 +98,8 @@ After that, it is time to specify the config for each block of the chain.
         num_classes: 5
         data_dim: 3
         spatial_size: 768
-        ghost: True
-        features: 2
+        ghost: False
+        features: 1
         model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_cnn_clustering1/snapshot-50999.ckpt'
         model_name: 'uresnet_lonely'
       ppn:
@@ -105,8 +108,6 @@ After that, it is time to specify the config for each block of the chain.
         num_classes: 5
         data_dim: 3
         downsample_ghost: True
-        use_encoding: False
-        ppn_num_conv: 1
         #weight_seg: 5.0
         weight_ppn: 0.9
         score_threshold: 0.5
