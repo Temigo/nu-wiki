@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:20:30.955Z
+date: 2020-12-09T02:23:08.389Z
 tags: 
 ---
 
@@ -117,7 +117,42 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
         model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_cnn_clustering1/snapshot-50999.ckpt'
         model_name: 'ppn'
 ```
+> Technical Note: `model_path` refers to weights that should be loaded for different parts of the chain. `model_name` is optional and should be specified if there is a naming mismatch between the network's parameters in your current configuration and in the weights that you want to load.
+{.is-info}
 
+#### 2. CNN (aka dense) clustering
+
+```
+    # CNN Clustering config
+    spice:
+      network_base:
+        spatial_size: 768
+        data_dim: 3
+        features: 4
+        leakiness: 0.33
+      spatial_embeddings:
+        seediness_dim: 1
+        sigma_dim: 1
+        embedding_dim: 3
+        coordConv: True
+        model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_cnn_clustering1/snapshot-50999.ckpt'
+      uresnet:
+        filters: 64
+        input_kernel_size: 7
+        num_strides: 7
+        reps: 2
+      fragment_clustering:
+        s_thresholds: [0., 0., 0., 0.35]
+        p_thresholds: [0.95, 0.95, 0.95, 0.95] 
+        cluster_all: False
+        cluster_classes: [1]
+    spice_loss:
+      name: se_vectorized_inter
+      seediness_weight: 1.0
+      embedding_weight: 1.0
+      smoothing_weight: 1.0
+      min_voxels: 2
+```
 
 Let's see what are the outputs of this configuration.
 
