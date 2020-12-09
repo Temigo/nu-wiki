@@ -2,23 +2,34 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-09-04T16:30:23.250Z
+date: 2020-12-09T02:07:53.816Z
 tags: 
 ---
 
 ## Running a standard configuration
 
+> To run it, make sure you have the latest code version from `DeepLearnPhysics/lartpc_mlreco3d` on the branch `develop`.
+{.is-info}
+
+> TODO: update weights to no-ghost weights.
+{.is-warning}
+
+
 ### Configuration
-An typical configuration would be the following (no ghost points, UResNet + PPN + CNN clustering + GNN clustering for showers + GNN interaction clustering):
+This is meant to be an example of a typical configuration: no ghost points, with all the steps of the full chain currently available (UResNet + PPN + CNN/DBSCAN clustering + GNN clustering for showers, tracks, interactions + Kinematics and particle flow + cosmic discrimination). Let us break it down to explain a few things. 
+
+First comes the I/O configuration block. 
+> Technical Note: here we specify `particle_mpv_tree` to be used by `parse_cluster3d_clean_full` and `parse_cluster3d_kinematics_clean`, because the neutrino interaction id wasn't recorded in this sample yet. If you are using a newer sample, ask Laura about skipping this mitigation (not implemented yet).
+{.is-info}
 
 ```
 iotool:
-  batch_size: 32
+  batch_size: 4
   shuffle: False
   num_workers: 4
   collate_fn: CollateSparse
   sampler:
-    batch_size: 32
+    batch_size: 4
     name: RandomSequenceSampler
   dataset:
     name: LArCVDataset
@@ -36,181 +47,76 @@ iotool:
         - parse_cluster3d_clean_full
         - cluster3d_pcluster
         - particle_pcluster
+        - particle_mpv
         - sparse3d_pcluster_semantics
       particles_label:
         - parse_particle_points
         - sparse3d_pcluster
         - particle_corrected
+      kinematics_label:
+        - parse_cluster3d_kinematics_clean
+        - cluster3d_pcluster
+        - particle_corrected
+        - particle_mpv
+        - sparse3d_pcluster_semantics
+      particle_graph:
+        - parse_particle_graph_corrected
+        - particle_corrected
+        - cluster3d_pcluster
+```
+
+Then we start configuring the full chain. The `chain` block defines which parts of the chain you want to use. This is also where you should turn on `enable_ghost` if your sample has ghost points. 
+```
 model:
   name: ghost_chain
   modules:
-    # ----- Global chain configuration -----
     chain:
       enable_uresnet: True
       enable_ppn: True
       enable_cnn_clust: True
       enable_gnn_shower: True
-      enable_gnn_tracks: False
+      enable_gnn_tracks: True
       enable_gnn_int: True
+      enable_kinematics: False
+      enable_cosmic: True
       enable_ghost: False
-      use_ppn_in_gnn: False
-    full_chain_loss:
-      name: se_lovasz_inter
-      spatial_size: 768
-      segmentation_weight: 1.
-      clustering_weight: 1.
-      ppn_weight: 1.
-      particle_gnn_weight: 1.
-      inter_gnn_weight: 1.
-    # ---- Shower clustering GNN config -----
-    particle_gnn:
-      node_type: 0
-      node_min_size: 10
-      #model_path: ''
-    dbscan_frag:
-      dim: 3
-      eps: [1.999, 3.999, 1.999, 4.999]
-      min_samples: 1
-      min_size: [10,3,3,3]
-      num_classes: 4 # Ignores LE
-      track_label: 1
-      michel_label: 2
-      delta_label: 3
-      track_clustering_method: 'closest_path' # masked_dbscan, closest_path
-      ppn_score_threshold: 0.9
-      ppn_type_threshold: 0.3
-      ppn_distance_threshold: 1.999
-      ppn_mask_radius: 5
-    node_encoder:
-      name: 'geo'
-      use_numpy: True
-    edge_encoder:
-      name: 'geo'
-      use_numpy: True
-    particle_edge_model:
-      name: modular_meta
-      edge_feats: 19
-      node_feats: 16 #24 #w/ start point and direction
-      node_classes: 2
-      edge_classes: 2
-      node_output_feats: 64
-      edge_output_feats: 64
-      aggr: 'add'
-      leakiness: 0.1
-      num_mp: 3
-    # ----- Interaction GNN config -----
-    interaction_gnn:
-      node_type: -1
-      node_min_size: 10
-      network: 'complete'
-      edge_max_dist: -1
-      edge_dist_metric: 'set'
-      edge_dist_numpy: False #True
-      add_start_point: False #True
-      add_start_dir: True
-      start_dir_max_dist: 5
-      group_pred: 'score'
-      loss: 'CE'
-      reduction: 'sum'
-      balance_classes: False
-      target: 'group'
-      source_col: 6
-      target_col: 7
-      high_purity: True
-      #model_path: ''
-    interaction_edge_model:
-      name: modular_meta
-      edge_feats: 19
-      node_feats: 28 #w/ start point and direction
-      node_classes: 2
-      edge_classes: 2
-      node_output_feats: 64
-      edge_output_feats: 64
-      aggr: 'add'
-      leakiness: 0.1
-      num_mp: 3
-    # ----- CNN Clustering config -----
-    network_base:
-      spatial_size: 768
-      data_dim: 3
-      features: 4
-      leakiness: 0.33
-    spatial_embeddings:
-      seediness_dim: 1
-      sigma_dim: 1
-      embedding_dim: 3
-      coordConv: True
-      #model_path: ''
-    uresnet:
-      filters: 64
-      input_kernel_size: 7
-      num_strides: 7
-      reps: 2
-      #model_path: ''
-    clustering_loss:
-      name: se_lovasz_inter
-      seediness_weight: 1.0
-      embedding_weight: 1.0
-      smoothing_weight: 1.0
-    # ----- UResNet config -----
-    uresnet_lonely:
-      freeze: False
-      num_strides: 6
-      filters: 16
-      num_classes: 5
-      data_dim: 3
-      spatial_size: 768
-      ghost: False
-      features: 1
-      #model_path: ''
-    # ---- PPN config -----
-    ppn:
-      num_strides: 6
-      filters: 16
-      num_classes: 5
-      data_dim: 3
-      downsample_ghost: False
-      use_encoding: False
-      ppn_num_conv: 1
-      #weight_seg: 5.0
-      weight_ppn: 0.9
-      score_threshold: 0.5
-      ppn1_size: 24
-      ppn2_size: 96
-      spatial_size: 768
-      #model_path: ''
-    fragment_clustering:
-      s_thresholds: [0., 0., 0., 0.35]
-      p_thresholds: [0.95, 0.95, 0.95, 0.95]
-      cluster_all: False
-  network_input:
-    - input_data
-  loss_input:
-    - segment_label
-    - cluster_label
-    - particles_label
-trainval:
-  seed: 123
-  unwrapper: unwrap_3d_scn
-  concat_result: ['seediness', 'margins', 'embeddings', 'fragments','frag_edge_index','frag_edge_pred','frag_node_pred','frag_group_pred','particles','inter_edge_index','inter_edge_pred']
-  gpus: '0'
-  weight_prefix: ./weights_trash/snapshot
-  iterations: 2000
-  report_step: 1
-  checkpoint_step: 100
-  model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/weights_noghost1/snapshot-4999.ckpt'
-  log_dir: ./log_trash
-  train: True
-  debug: False
-  minibatch_size: -1
-  optimizer:
-    name: Adam
-    args:
-      lr: 0.001
+      use_ppn_in_gnn: True
+      verbose: False
 ```
-To run it, make sure you have the latest code version from `Temigo/lartpc_mlreco3d` on the branch `temigo`.
+After that, it is time to specify the config for each block of the chain. 
+#### UResNet + PPN
 
-> IN PROGRESS merge this code into `DeepLearnPhysics/lartpc_mlreco3d`
+```
+    # UResNet + PPN
+    uresnet_ppn:
+      uresnet_lonely:
+        num_strides: 6
+        filters: 16
+        num_classes: 5
+        data_dim: 3
+        spatial_size: 768
+        ghost: True
+        features: 2
+        model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_cnn_clustering1/snapshot-50999.ckpt'
+        model_name: 'uresnet_lonely'
+      ppn:
+        num_strides: 6
+        filters: 16
+        num_classes: 5
+        data_dim: 3
+        downsample_ghost: True
+        use_encoding: False
+        ppn_num_conv: 1
+        #weight_seg: 5.0
+        weight_ppn: 0.9
+        score_threshold: 0.5
+        ppn1_size: 24
+        ppn2_size: 96
+        spatial_size: 768
+        model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_cnn_clustering1/snapshot-50999.ckpt'
+        model_name: 'ppn'
+```
+
 
 Let's see what are the outputs of this configuration.
 
