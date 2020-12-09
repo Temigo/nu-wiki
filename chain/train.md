@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:14:52.096Z
+date: 2020-12-09T02:20:06.395Z
 tags: 
 ---
 
@@ -88,7 +88,9 @@ After that, it is time to specify the config for each block of the chain.
 This is a UResNet architecture with depth 6 (`num_strides`) and 16 initial filters (`filters`). `features` specifies how many features the input has (in this example, just one, an energy deposit for each voxel). `ghost` should be enabled if your input has ghost points and you require the "5+2" architecture (predicts a binary ghost/non-ghost mask in addition to the semantic segmentation mask). `spatial_size` defines a cube (in voxels) in which all coordinates should fit. `data_dim` is 3 since the sample is three-dimensional. `num_classes` refers to the semantic classes in your labels (not counting the label for ghost point, if applicable).
 
 In the `ppn` block, the eponymous configuration parameters should be identical to the `uresnet_lonely` block (the PPN layers feed off the UResNet network).
-`downsample_ghost` should be True if you have ghost points, False otherwise.
+`downsample_ghost` should be True if you have ghost points, False otherwise. If you have ghost points, it helps to enable `weight_ppn` (will reward positives more than negatives).
+
+`ppn1_size` and `ppn2_size` (in voxels) specify the spatial size at the intermediate layers of PPN1 and PPN2. They need to be such that `ppn1_size` * 2^i = `spatial_size`, `ppn2_size` * 2^j = `spatial_size`, and depth >= i > j.
 ```
     # UResNet + PPN
     uresnet_ppn:
@@ -108,8 +110,7 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
         num_classes: 5
         data_dim: 3
         downsample_ghost: True
-        weight_ppn: 0.9
-        score_threshold: 0.5
+        #weight_ppn: 0.9
         ppn1_size: 24
         ppn2_size: 96
         spatial_size: 768
