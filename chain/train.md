@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:25:30.831Z
+date: 2020-12-09T02:32:53.617Z
 tags: 
 ---
 
@@ -83,7 +83,8 @@ model:
       use_ppn_in_gnn: True
       verbose: False
 ```
-After that, it is time to specify the config for each block of the chain. 
+After that, it is time to specify the config for each block of the chain. The following blocks are at the same level as `chain` (i.e. listed under `modules`), hierarchy-wise.
+
 #### 1. UResNet + PPN
 This is a UResNet architecture with depth 6 (`num_strides`) and 16 initial filters (`filters`). `features` specifies how many features the input has (in this example, just one, an energy deposit for each voxel). `ghost` should be enabled if your input has ghost points and you require the "5+2" architecture (predicts a binary ghost/non-ghost mask in addition to the semantic segmentation mask). `spatial_size` defines a cube (in voxels) in which all coordinates should fit. `data_dim` is 3 since the sample is three-dimensional. `num_classes` refers to the semantic classes in your labels (not counting the label for ghost point, if applicable).
 
@@ -121,7 +122,7 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
 {.is-info}
 
 #### 2. CNN (aka dense) clustering
-
+`cluster_classes` specifies which semantic class should undergo the CNN clustering. Here we limit it to tracks.
 ```
     # CNN Clustering config
     spice:
@@ -153,8 +154,29 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
       smoothing_weight: 1.0
       min_voxels: 2
 ```
-#### 3. GNN clustering
 
+#### 3. DBSCAN Fragmenter
+Here we can specify if we want some semantic classes to be clustered by DBSCAN. The parameter `cluster_classes` is what matters. Here we ask that shower fragments, Michel and Delta be clustered through DBSCAN algorithm. Note that we ignore the last semantic class (lowE energy depositions), which will thus be excluded from the rest of the chain.
+```
+    # DBScan Fragmenter config
+    dbscan_frag:
+      dim: 3
+      eps: [1.999, 3.999, 1.999, 4.999]
+      min_samples: 1
+      min_size: [3,3,3,3]
+      num_classes: 4 # Ignores LE
+      cluster_classes: [0, 2, 3] #[0, 1, 2, 3]
+      track_label: 1
+      michel_label: 2
+      delta_label: 3
+      track_clustering_method: 'closest_path'
+      ppn_score_threshold: 0.9
+      ppn_type_threshold: 0.3
+      ppn_distance_threshold: 1.999
+      ppn_mask_radius: 5
+```
+#### 4. GNN clustering
+For now there is a separate GNN to cluster shower fragments, track fragments and particles (into interactions). This is the GNN shower clustering configuration:
 ```
     # Shower GNN config
     grappa_shower:
@@ -198,6 +220,90 @@ In the `ppn` block, the eponymous configuration parameters should be identical t
         high_purity: True
         source_col: 5
         target_col: 6
+```
+Track GNN configuration:
+```
+    # Track GNN config
+    grappa_track:
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_track_clustering1/snapshot-9999.ckpt'
+      model_name: 'track_gnn'
+      base:
+        node_type: 1
+        node_min_size: 10
+      node_encoder:
+        name: 'geo'
+        use_numpy: True
+      edge_encoder:
+        name: 'geo'
+        use_numpy: True
+      gnn_model:
+        name: modular_meta
+        edge_feats: 19
+        node_feats: 16 #22 #w/ start point and direction
+        node_classes: 2
+        edge_classes: 2
+        node_output_feats: 64
+        edge_output_feats: 64
+        aggr: 'add'
+        leakiness: 0.1
+        num_mp: 3
+    grappa_track_loss:
+      edge_loss:
+        name: channel
+        loss: CE
+        reduction: sum
+        balance_classes: False
+        target: group
+        high_purity: True
+        source_col: 5
+        target_col: 6
+```
+Interaction GNN configuration:
+```
+    # Interaction GNN config
+    grappa_inter:
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_inter_clustering1/snapshot-10499.ckpt'
+      model_name: 'inter_gnn'
+      base:
+        node_type: -1
+        node_min_size: 10
+        source_col: 6
+        target_col: 7
+        network: complete
+        edge_max_dist: -1
+        edge_dist_metric: set
+        edge_dist_numpy: False #True
+        add_start_point: False #True
+        add_start_dir: True
+        start_dir_max_dist: 5
+        group_pred: 'score'
+      node_encoder:
+        name: 'geo'
+        use_numpy: True
+      edge_encoder:
+        name: 'geo'
+        use_numpy: True
+      gnn_model:
+        name: modular_meta
+        edge_feats: 19
+        node_feats: 28 #w/ start point and direction
+        node_classes: 2
+        edge_classes: 2
+        node_output_feats: 64
+        edge_output_feats: 64
+        aggr: 'add'
+        leakiness: 0.1
+        num_mp: 3
+    grappa_inter_loss:
+      edge_loss:
+        name: channel
+        loss: CE
+        source_col: 6
+        target_col: 7
+        reduction: sum
+        balance_classes: False
+        target: group
+        high_purity: False
 ```
 
 Let's see what are the outputs of this configuration.
