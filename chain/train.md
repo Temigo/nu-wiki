@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:32:53.617Z
+date: 2020-12-09T02:39:03.584Z
 tags: 
 ---
 
@@ -306,7 +306,163 @@ Interaction GNN configuration:
         high_purity: False
 ```
 
-Let's see what are the outputs of this configuration.
+#### 5. Kinematics & particle flow
+```
+    # Kinematics GNN config
+    grappa_kinematics:
+      use_true_particles: False
+      base:
+        node_type: -1
+        node_min_size: -1
+        network: complete
+        edge_max_dist: -1
+        edge_dist_metric: set
+        edge_dist_numpy: True
+      node_encoder:
+        name: 'mix_debug'
+        normalize: True
+        geo_encoder:
+          more_feats: True
+        cnn_encoder:
+          name: 'cnn2'
+          res_encoder:
+            coordConv: True
+            pool_mode: 'avg'
+            num_features: 64 #256
+          network_base:
+            spatial_size: 768
+            data_dim: 3
+            features: 4
+            leakiness: 0.33
+          uresnet_encoder:
+            filters: 32
+            num_strides: 9
+            num_filters: 16
+            reps: 2
+            num_classes: 5
+            input_kernel: 3
+      edge_encoder:
+        name: 'mix_debug'
+        normalize: True
+        geo_encoder:
+          more_feats: True
+        cnn_encoder:
+          name: 'cnn2'
+          res_encoder:
+            coordConv: True
+            pool_mode: 'avg'
+            num_features: 32
+          network_base:
+            spatial_size: 768
+            data_dim: 3
+            features: 4
+            leakiness: 0.33
+          uresnet_encoder:
+            filters: 32
+            num_strides: 9
+            num_filters: 32
+            reps: 2
+            num_classes: 5
+            input_kernel: 3
+      gnn_model:
+        name: nnconv_old #modular_nnconv
+        edge_feats: 51
+        node_feats: 83 #275
+        node_output_feats: 128
+        edge_output_feats: 64
+        edge_classes: 2
+        node_classes: 5
+        aggr: 'add'
+        leak: 0.33
+        num_mp: 3
+    grappa_kinematics_loss:
+      node_loss:
+        name: kinematics
+        type_loss: CE
+        reg_loss: l2 #'huber'
+        reduction: sum
+        balance_classes: False
+        target: particle_forest
+        high_purity: False
+      edge_loss:
+        name: channel
+        reduction: sum
+        balance_classes: False
+        target: particle_forest
+        high_purity: False
+```
+
+#### 6. Cosmic discrimination
+```
+    # Cosmic discrimination
+    cosmic_discriminator:
+      use_input_data: False
+      use_true_interactions: False
+      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_nu3/snapshot-9999.ckpt'
+      res_encoder:
+        coordConv: True
+        pool_mode: 'avg'
+        num_features: 2
+      network_base:
+        spatial_size: 768
+        data_dim: 3
+        features: 4
+        leakiness: 0.33
+      uresnet_encoder:
+        num_strides: 9
+        filters: 16
+        features: 16 # nInputFeatures
+```
+
+#### 7. Chain loss weighting
+Here you can specify whether you would like to weight some of the losses more than others (or turn them off completely by setting them to zero).
+```
+    # full chain loss and weighting
+    full_chain_loss:
+      segmentation_weight: 1.
+      clustering_weight: 1.
+      ppn_weight: 1.
+      particle_gnn_weight: 1.
+      track_gnn_weight: 1.
+      inter_gnn_weight: 1.
+      kinematics_weight: 10.
+      kinematics_p_weight: 1.
+      kinematics_type_weight: 1.
+      flow_weight: 10.
+      cosmic_weight: 1.
+```
+
+#### End of configuration
+> Note that if you enabled previously `use_true_interactions` or `use_true_particles` in the Kinematics or Cosmic discrimination parts, you should add `segment_label` and `cluster_label` (in this order) to the `network_input` list.
+{.is-info}
+
+```
+  network_input:
+    - input_data
+  loss_input:
+    - segment_label
+    - particles_label
+    - cluster_label
+trainval:
+  seed: 123
+  unwrapper: unwrap_3d_scn
+  concat_result: ['seediness', 'margins', 'embeddings', 'clust_fragments', 'clust_frag_batch_ids', 'clust_frag_seg', 'fragments','frag_edge_index','frag_edge_pred','frag_node_pred','frag_group_pred','particles','inter_edge_index','inter_edge_pred']
+  gpus: '0'
+  weight_prefix: ./weights_trash/snapshot
+  iterations: 100000
+  report_step: 1
+  checkpoint_step: 100
+  log_dir: ./chain/log_trash
+  train: True
+  debug: False
+  minibatch_size: -1
+  optimizer:
+    name: Adam
+    args:
+      lr: 0.001
+```
+> If you want to run on CPU, set `gpu` to an empty string `''`.
+{.is-info}
 
 ### Outputs
 Assuming that the previous configuration is stored in a string `cfg`:
