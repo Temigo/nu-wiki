@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2020-12-09T02:39:03.584Z
+date: 2021-01-27T01:21:44.174Z
 tags: 
 ---
 
@@ -422,6 +422,7 @@ Here you can specify whether you would like to weight some of the losses more th
       segmentation_weight: 1.
       clustering_weight: 1.
       ppn_weight: 1.
+      shower_gnn_weight: 1.
       particle_gnn_weight: 1.
       track_gnn_weight: 1.
       inter_gnn_weight: 1.
