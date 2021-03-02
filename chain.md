@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2021-03-02T20:29:31.442Z
+date: 2021-03-02T20:30:54.472Z
 tags: 
 ---
 
@@ -25,7 +25,7 @@ TODO: make sure each page below is up to date.
 9. Nu vs cosmic [Laura]
 
 ### Others
-Diagram, movie?
+See the nice visualization of each step made by Kazu [here](http://web.stanford.edu/~kterao/DataVis-dunend-08-26.html).
 
 ## 2. [Training the full chain](/chain/train)
 If you want to see...
