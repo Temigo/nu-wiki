@@ -2,7 +2,7 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2020-09-02T17:07:40.613Z
+date: 2021-03-02T20:29:31.442Z
 tags: 
 ---
 
@@ -19,9 +19,10 @@ TODO: make sure each page below is up to date.
 3. [Dense clustering](/chain/clustering/dense) [Dae Heun]
 4. [Shower clustering](/chain/clustering/shower) [François]
 5. [Particle start point and direction](/chain/direction) [none]
-6. [Vertex identification](/chain/vertex) [none]
+6. [Vertex identification](/chain/vertex) [Laura]
 7. [Interaction clustering](/chain/interaction) [Qing/François]
 8. [Particle kinematics](/chain/kinematics) [Dae Heun]
+9. Nu vs cosmic [Laura]
 
 ### Others
 Diagram, movie?
