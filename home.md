@@ -2,8 +2,10 @@
 title: Home
 description: 
 published: true
-date: 2020-07-23T22:32:09.134Z
+date: 2021-03-04T06:34:16.883Z
 tags: 
+editor: markdown
+dateCreated: 2020-05-18T20:58:52.017Z
 ---
 
 Welcome to Nu Wiki.
@@ -14,7 +16,4 @@ Welcome to Nu Wiki.
 
 [LArTPC experiments](/experiments)
 
-> Wiki.js 2.4 upgrade is pending and will include
-> - MathJax
-> - Tabs
-> - Embedding Google Doc/Spreadsheet
+> The wiki was upgraded ! You can now use MathJax and create pages from Jupyter notebooks directly. Please report bugs to @Temigo.
