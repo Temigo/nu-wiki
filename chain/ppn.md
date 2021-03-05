@@ -2,7 +2,7 @@
 title: PPN
 description: Point Proposal Network
 published: true
-date: 2021-03-05T17:13:01.391Z
+date: 2021-03-05T17:14:29.439Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:00:58.510Z
@@ -37,4 +37,4 @@ From PPN paper = PILArNet old dataset, data and labels:
 
 Example of PPN predictions:
 
-![uresnet_ppn_predictions.png](/event_displays/pilarnet/uresnet_ppn_predictions.png =300x){.align-left}
+![uresnet_ppn_predictions.png](/event_displays/pilarnet/uresnet_ppn_predictions.png =300x)
