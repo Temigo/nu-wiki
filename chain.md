@@ -2,29 +2,33 @@
 title: Full Chain Reconstruction
 description: 
 published: true
-date: 2021-03-02T20:30:54.472Z
+date: 2021-03-05T16:28:47.226Z
 tags: 
+editor: markdown
+dateCreated: 2020-05-18T17:52:13.409Z
 ---
 
 ## 1. What is the full reco chain?
-Explain in English here.
+> *... a modular,  end-to-end,  ML-based reconstruction chain which takes 3D particle interaction images as an input and hierarchically extracts increasingly high-level information at each stage by building upon the previous steps.*
+> (NIPS workshop paper, thanks François!)
 
-### Reconstruction stages
+![full_chain_architecture.png](/architectures/full_chain_architecture.png)
 For each stage, click on the link to see more performance plots and benchmark numbers.
 
-TODO: make sure each page below is up to date.
+> TODO: make sure each page below is up to date.
+{.is-warning}
+
 
 1. [UResNet](/chain/uresnet) [Laura/Patrick]
 2. [PPN](/chain/ppn) [Laura/Patrick]
-3. [Dense clustering](/chain/clustering/dense) [Dae Heun]
-4. [Shower clustering](/chain/clustering/shower) [François]
-5. [Particle start point and direction](/chain/direction) [none]
-6. [Vertex identification](/chain/vertex) [Laura]
-7. [Interaction clustering](/chain/interaction) [Qing/François]
-8. [Particle kinematics](/chain/kinematics) [Dae Heun]
-9. Nu vs cosmic [Laura]
+3. [Dense clustering (SPICE)](/chain/clustering/dense) [Dae Heun]
+4. [Track clustering (GRAPPA)](/chain/clustering/track)
+5. [Shower clustering (GRAPPA)](/chain/clustering/shower) [François]
+6. [Interaction clustering (GRAPPA)](/chain/interaction) [Qing/François]
+7. [Particle hierarchy, type & kinematics](/chain/kinematics) [Dae Heun]
+8. [Neutrino vertex identification](/chain/vertex) [Laura]
+9. [Nu vs cosmic](/chain/cosmic) [Laura]
 
-### Others
 See the nice visualization of each step made by Kazu [here](http://web.stanford.edu/~kterao/DataVis-dunend-08-26.html).
 
 ## 2. [Training the full chain](/chain/train)
@@ -39,6 +43,18 @@ Please visit [this page](/chain/train).
 Questions commonly asked abour our work and some examples of proper answers.
 
 ## 4. Citations
+**NIPS workshop 2020, Full chain paper**
+Drielsma, Francois, et al. "Scalable, End-to-End, Deep-Learning-Based Data Reconstruction Chain for Particle Imaging Detectors." arXiv preprint arXiv:2102.01033 (2021).
+```
+@article{FullChain,
+  title={Scalable, End-to-End, Deep-Learning-Based Data Reconstruction Chain for Particle Imaging Detectors},
+  author={Drielsma, Francois and Terao, Kazuhiro and Domin{\'e}, Laura and Koh, Dae Heun},
+  journal={arXiv preprint arXiv:2102.01033},
+  year={2021}
+}
+```
+
+**SSCN paper**
 Dominé, Laura, Kazuhiro Terao, and DeepLearnPhysics Collaboration. "Scalable deep convolutional neural networks for sparse, locally dense liquid argon time projection chamber data." Physical Review D 102.1 (2020): 012005.
 ```
 @article{SSCN,
@@ -53,6 +69,7 @@ Dominé, Laura, Kazuhiro Terao, and DeepLearnPhysics Collaboration. "Scalable de
 }
 
 ```
+**PPN paper**
 Dominé, Laura, et al. "Point Proposal Network for Reconstructing 3D Particle Positions with Sub-Pixel Precision in Liquid Argon Time Projection Chambers." arXiv preprint arXiv:2006.14745 (2020).
 ```
 @article{PPN,
@@ -63,6 +80,7 @@ Dominé, Laura, et al. "Point Proposal Network for Reconstructing 3D Particle Po
 }
 
 ```
+**SPICE paper**
 Koh, Dae Heun, et al. "Scalable, Proposal-free Instance Segmentation Network for 3D Pixel Clustering and Particle Trajectory Reconstruction in Liquid Argon Time Projection Chambers." arXiv preprint arXiv:2007.03083 (2020).
 ```
 @article{CNNClustering,
@@ -73,6 +91,7 @@ Koh, Dae Heun, et al. "Scalable, Proposal-free Instance Segmentation Network for
 }
 
 ```
+**GRAPPA paper**
 Drielsma, Francois, et al. "Clustering of Electromagnetic Showers and Particle Interactions with Graph Neural Networks in Liquid Argon Time Projection Chambers Data." arXiv preprint arXiv:2007.01335 (2020).
 ```
 @article{GNNClustering,
