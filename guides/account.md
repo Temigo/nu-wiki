@@ -2,17 +2,19 @@
 title: Computing Accounts
 description: 
 published: true
-date: 2020-07-28T20:56:01.058Z
+date: 2021-03-10T19:57:38.062Z
 tags: 
+editor: markdown
+dateCreated: 2020-05-18T21:57:32.730Z
 ---
 
 ## Step 1: Getting your account
 
-There are two types of accounts: **unix** and **windows**. 
+There are two types: **SLUO** and **computing** accounts. 
 
-**Unix** account is used to use computing resources at SLAC. It's the account you would use to ssh into computing nodes, submit grid jobs, etc. Usual stuffs!
+**SLUO** account is needed for all SLAC employees and users. You need this before applying for a computing account.
 
-**Windows** account is used for emails, scheduler apps, HR websites, travel request/report, IT service ticket, etc.. If you are a SLAC employee, you need this. If you are a non-SLAC collaborator, you might not need this.
+**Computing (Unix/Windows)** account is for all practical things including use of computing resources, emails, office apps, HR websites, travel requests/reports, IT service tickets and more. When you apply, make sure you apply to both. Unix account used to be used for all computing accounts, but as of Spring 2020 Windows account is used for authentification of SDF computing infrastructure, a main computing resource at SLAC.
 
 ### How to request an account?
 * **Step 1.1**: request SLAC user account (called SLUO). I put [instructions here](/guides/sluo-howto). This may take some time (a few days to a week), so submit asap!
