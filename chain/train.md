@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2021-03-10T20:58:55.801Z
+date: 2021-03-10T21:00:01.077Z
 tags: 
 editor: markdown
 dateCreated: 2020-08-27T00:43:33.175Z
@@ -183,8 +183,6 @@ For now there is a separate GNN to cluster shower fragments, track fragments and
 ```
     # Shower GNN config
     grappa_shower:
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_shower_clustering1/snapshot-29499.ckpt'
-      model_name: 'particle_gnn'
       base:
         node_type: 0
         node_min_size: 3
