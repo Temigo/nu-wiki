@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2021-03-10T21:00:01.077Z
+date: 2021-03-10T21:00:38.983Z
 tags: 
 editor: markdown
 dateCreated: 2020-08-27T00:43:33.175Z
@@ -13,7 +13,7 @@ dateCreated: 2020-08-27T00:43:33.175Z
 > To run it, make sure you have the latest code version from `DeepLearnPhysics/lartpc_mlreco3d` on the branch `develop`.
 {.is-info}
 
-> TODO: update weights to no-ghost weights.
+> TODO: provide weights.
 {.is-warning}
 
 
