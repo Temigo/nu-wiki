@@ -2,8 +2,10 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2021-01-27T01:21:44.174Z
+date: 2021-03-10T20:58:55.801Z
 tags: 
+editor: markdown
+dateCreated: 2020-08-27T00:43:33.175Z
 ---
 
 ## Running a standard configuration
@@ -75,9 +77,10 @@ model:
       enable_ppn: True
       enable_cnn_clust: True
       enable_gnn_shower: True
-      enable_gnn_tracks: True
-      enable_gnn_int: True
-      enable_kinematics: False
+      enable_gnn_track: True
+      enable_gnn_particle: False
+      enable_gnn_inter: True
+      enable_gnn_kinematics: False
       enable_cosmic: True
       enable_ghost: False
       use_ppn_in_gnn: True
@@ -184,17 +187,20 @@ For now there is a separate GNN to cluster shower fragments, track fragments and
       model_name: 'particle_gnn'
       base:
         node_type: 0
-        node_min_size: 10
+        node_min_size: 3
+        add_start_point: True
+        add_start_dir: True
+        start_dir_max_dist: 5
       node_encoder:
         name: 'geo'
-        use_numpy: True
+        use_numpy: False
       edge_encoder:
         name: 'geo'
-        use_numpy: True
+        use_numpy: False
       gnn_model:
-        name: meta #modular_meta
+        name: meta 
         edge_feats: 19
-        node_feats: 24 #16 #24 #w/ PPN
+        node_feats: 28
         node_classes: 2
         edge_classes: 2
         node_output_feats: 64
@@ -205,18 +211,11 @@ For now there is a separate GNN to cluster shower fragments, track fragments and
     grappa_shower_loss:
       node_loss:
         name: primary
-        loss: CE
-        reduction: sum
-        balance_classes: False
         high_purity: True
         use_group_pred: True
         group_pred_alg: score
       edge_loss:
         name: channel
-        loss: CE
-        reduction: sum
-        balance_classes: False
-        target: group
         high_purity: True
         source_col: 5
         target_col: 6
@@ -225,21 +224,22 @@ Track GNN configuration:
 ```
     # Track GNN config
     grappa_track:
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_track_clustering1/snapshot-9999.ckpt'
-      model_name: 'track_gnn'
       base:
         node_type: 1
-        node_min_size: 10
+        node_min_size: 3
+        add_start_point: True
+        add_start_dir: True
+        start_dir_max_dist: 5
       node_encoder:
         name: 'geo'
-        use_numpy: True
+        use_numpy: False
       edge_encoder:
         name: 'geo'
-        use_numpy: True
+        use_numpy: False
       gnn_model:
-        name: modular_meta
+        name: meta
         edge_feats: 19
-        node_feats: 16 #22 #w/ start point and direction
+        node_feats: 28
         node_classes: 2
         edge_classes: 2
         node_output_feats: 64
@@ -250,11 +250,7 @@ Track GNN configuration:
     grappa_track_loss:
       edge_loss:
         name: channel
-        loss: CE
-        reduction: sum
-        balance_classes: False
-        target: group
-        high_purity: True
+        high_purity: False
         source_col: 5
         target_col: 6
 ```
@@ -262,31 +258,31 @@ Interaction GNN configuration:
 ```
     # Interaction GNN config
     grappa_inter:
-      model_path: '/gpfs/slac/staas/fs1/g/neutrino/ldomine/chain/new/weights_inter_clustering1/snapshot-10499.ckpt'
-      model_name: 'inter_gnn'
+      type_net:
+        num_hidden: 32
+      vertex_net:
+        num_hidden: 32
       base:
-        node_type: -1
-        node_min_size: 10
-        source_col: 6
-        target_col: 7
-        network: complete
-        edge_max_dist: -1
-        edge_dist_metric: set
-        edge_dist_numpy: False #True
-        add_start_point: False #True
+        node_type: [0, 1, 2, 3]
+        node_min_size: 3
+        add_start_point: True
         add_start_dir: True
         start_dir_max_dist: 5
         group_pred: 'score'
+        kinematics_mlp: False # Compute PID in grappa_inter, but not momentum
+        kinematics_type: False
+        kinematics_momentum: False
+        vertex_mlp: False
       node_encoder:
         name: 'geo'
-        use_numpy: True
+        use_numpy: False
       edge_encoder:
         name: 'geo'
-        use_numpy: True
+        use_numpy: False
       gnn_model:
-        name: modular_meta
+        name: meta
         edge_feats: 19
-        node_feats: 28 #w/ start point and direction
+        node_feats: 28
         node_classes: 2
         edge_classes: 2
         node_output_feats: 64
@@ -304,6 +300,12 @@ Interaction GNN configuration:
         balance_classes: False
         target: group
         high_purity: False
+      # Remove the node_loss if you are not predicting PID or vertex
+      node_loss:
+        name: kinematics
+        type_loss: CE
+        balance_classes: True
+        spatial_size: 768
 ```
 
 #### 5. Kinematics & particle flow
@@ -311,6 +313,8 @@ Interaction GNN configuration:
     # Kinematics GNN config
     grappa_kinematics:
       use_true_particles: False
+      momentum_net:
+        num_hidden: 32
       base:
         node_type: -1
         node_min_size: -1
@@ -318,6 +322,9 @@ Interaction GNN configuration:
         edge_max_dist: -1
         edge_dist_metric: set
         edge_dist_numpy: True
+        kinematics_mlp: True # Compute momentum, not PID, in grappa_kinematics
+        kinematics_type: False
+        kinematics_momentum: True
       node_encoder:
         name: 'mix_debug'
         normalize: True
@@ -378,12 +385,7 @@ Interaction GNN configuration:
     grappa_kinematics_loss:
       node_loss:
         name: kinematics
-        type_loss: CE
-        reg_loss: l2 #'huber'
-        reduction: sum
-        balance_classes: False
-        target: particle_forest
-        high_purity: False
+        reg_loss: l2
       edge_loss:
         name: channel
         reduction: sum
@@ -412,6 +414,11 @@ Interaction GNN configuration:
         num_strides: 9
         filters: 16
         features: 16 # nInputFeatures
+    cosmic_loss:
+      node_loss:
+        name: type
+        target_col: 8
+        balance_classes: True
 ```
 
 #### 7. Chain loss weighting
@@ -422,14 +429,14 @@ Here you can specify whether you would like to weight some of the losses more th
       segmentation_weight: 1.
       clustering_weight: 1.
       ppn_weight: 1.
-      shower_gnn_weight: 1.
       particle_gnn_weight: 1.
+      shower_gnn_weight: 1.
       track_gnn_weight: 1.
       inter_gnn_weight: 1.
-      kinematics_weight: 10.
+      kinematics_weight: 1.
       kinematics_p_weight: 1.
       kinematics_type_weight: 1.
-      flow_weight: 10.
+      flow_weight: 1.
       cosmic_weight: 1.
 ```
 
@@ -444,10 +451,12 @@ Here you can specify whether you would like to weight some of the losses more th
     - segment_label
     - particles_label
     - cluster_label
+    - kinematics_label
+    - particle_graph
 trainval:
   seed: 123
   unwrapper: unwrap_3d_scn
-  concat_result: ['seediness', 'margins', 'embeddings', 'clust_fragments', 'clust_frag_batch_ids', 'clust_frag_seg', 'fragments','frag_edge_index','frag_edge_pred','frag_node_pred','frag_group_pred','particles','inter_edge_index','inter_edge_pred']
+  concat_result: ['seediness', 'margins', 'embeddings', 'fragments', 'fragments_seg', 'shower_fragments', 'shower_edge_index','shower_edge_pred','shower_node_pred','shower_group_pred','track_fragments', 'track_edge_index', 'track_node_pred', 'track_edge_pred', 'track_group_pred', 'particle_fragments', 'particle_edge_index', 'particle_node_pred', 'particle_edge_pred', 'particle_group_pred', 'particles','inter_edge_index', 'inter_node_pred', 'inter_edge_pred', 'node_pred_p', 'node_pred_type', 'flow_edge_pred', 'kinematics_particles', 'kinematics_edge_index', 'clust_fragments', 'clust_frag_seg', 'interactions', 'inter_cosmic_pred', 'node_pred_vtx', 'total_num_points', 'total_nonghost_points']
   gpus: '0'
   weight_prefix: ./weights_trash/snapshot
   iterations: 100000
@@ -488,36 +497,45 @@ Available post-processing scripts to record metrics on all stages of the chain a
 
 ```
 post_processing:
-  cluster_gnn_metrics:
+  # Interaction GNN
+  cluster_gnn_metrics+inter:
     ghost: True
-    store_method:
-      - per-iteration
-      - per-iteration
-      #- per-iteration
-    clusts:
-      - particles
-      - fragments
-      #- track_fragments
-    edge_pred:
-      - inter_edge_pred
-      - frag_edge_pred
-      #- track_edge_pred
-    edge_index:
-      - inter_edge_index
-      - frag_edge_index
-      #- track_edge_index
-    column:
-      - 7
-      - 6
-      #- 6
-    chain:
-      - interaction_gnn
-      - particle_gnn
-      #- track_gnn
-    filename:
-      - cluster-gnn-metrics-inter
-      - cluster-gnn-metrics-shower
-      #- cluster-gnn-metrics-track
+    enable_physics_metrics: True
+    store_method: per-iteration
+    clusts: particles
+    edge_pred: inter_edge_pred
+    edge_index: inter_edge_index
+    node_pred: ''
+    target_col: 7
+    source_col: 6
+    chain: grappa_inter
+    filename: cluster-gnn-metrics-inter
+  # Shower GNN
+  cluster_gnn_metrics+shower:
+    ghost: True
+    enable_physics_metrics: True
+    store_method: per-iteration
+    clusts: shower_fragments
+    edge_pred: shower_edge_pred
+    edge_index: shower_edge_index
+    node_pred: shower_node_pred
+    target_col: 6
+    source_col: 5
+    chain: grappa_shower
+    filename: cluster-gnn-metrics-shower
+  # Track GNN
+  cluster_gnn_metrics+track:
+    ghost: True
+    enable_physics_metrics: True
+    store_method: per-iteration
+    clusts: track_fragments
+    edge_pred: track_edge_pred
+    edge_index: track_edge_index
+    node_pred: ''
+    target_col: 6
+    source_col: 5
+    chain: grappa_track
+    filename: cluster-gnn-metrics-track
   uresnet_metrics:
     store_method: per-iteration
     num_classes: 5
@@ -531,26 +549,46 @@ post_processing:
   cluster_cnn_metrics:
     store_method: per-iteration
     ghost: True
+    spatial_size: 768
+    enable_physics_metrics: True
     p_thresholds:
       - 0.95
-      - 0.95
+      - 0.9
       - 0.95
       - 0.95
     s_thresholds:
       - 0.0
-      - 0.0
+      - 0.21
       - 0.0
       - 0.35
+  cosmic_discriminator_metrics:
+    store_method: per-iteration
+    ghost: True
+    spatial_size: 768
+    enable_physics_metrics: True
+  kinematics_metrics:
+    store_method: per-iteration
+    ghost: True
+    spatial_size: 768
+  vertex_metrics:
+    store_method: per-iteration
+    ghost: True
+    spatial_size: 768
+    clusts: particles
 ```
+Comment out or remove the configuration block of any metric script that you do NOT wish to run. If you are not working with ghost points, set `ghost` to `False` in all scripts.
 
 ## Training step by step
 For better results the chain should be trained step by step. The order is usually the following:
 
 1. UResNet
 2. PPN (can be combined with 1.)
-3. CNN clustering (if applicable) followed by GNN clustering of tracks (not currently in the `full_chain` model)
-4. GNN clustering for EM showers
+3. CNN clustering (if applicable) 
+
+After this point you probably want to freeze the weights for UResNet/PPN/Spice to avoid overtraining (especially for PPN).
+
+4. GNN clustering of tracks and GNN clustering for EM showers can be trained in parallel.
 5. Interaction clustering (GNN again)
-
-
-Note: 3. and 4. can be done in parallel.
+6. Once the GNN for interaction clustering is trained for a little bit, you can also activate the PID or vertex prediction components that feed off this GNN.
+7. The kinematics GNN for predicting particle hierarchy (flow) and momentum.
+8. Cosmic discrimination (nu vs cosmic).
