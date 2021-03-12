@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2021-03-10T21:00:38.983Z
+date: 2021-03-12T03:58:14.173Z
 tags: 
 editor: markdown
 dateCreated: 2020-08-27T00:43:33.175Z
@@ -70,7 +70,7 @@ iotool:
 Then we start configuring the full chain. The `chain` block defines which parts of the chain you want to use. This is also where you should turn on `enable_ghost` if your sample has ghost points. 
 ```
 model:
-  name: ghost_chain
+  name: full_chain
   modules:
     chain:
       enable_uresnet: True
