@@ -2,7 +2,7 @@
 title: Training the full chain
 description: Some instructions and descriptions (hopefully helpful)
 published: true
-date: 2021-03-12T03:58:14.173Z
+date: 2021-03-12T03:58:37.303Z
 tags: 
 editor: markdown
 dateCreated: 2020-08-27T00:43:33.175Z
