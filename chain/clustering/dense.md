@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:56:16.616Z
+date: 2021-04-04T11:06:17.752Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -45,7 +45,7 @@ From January 2021, by Laura
 
 **GraphSPICE** models have two to three major components: 1) **Embedder**, 2) **Similarity Kernel**, and an optional 3) **VoxelGNN**.  
  1. **Embedder** is a trainable CNN-based coordinate transform that maps input voxels with respect to some similarity loss (ex. Vanilla **SPICE** is an example of an **embedder**). 
- 2. **Similarity Kernel** $K$ is a function $K: (x_1, x_2) \mapsto s \in (-\infty, \infty)$ (a python `Callable`) that takes two pixel features and outputs a logit score $s \in (-\infty, \infty)$. The **Similarity Kernel** can be both trainable/non-trainable and is specifically used to compute edge probability scores from node (voxel) attributes. 
+ 2. **Similarity Kernel** $K$ is a function $K: (x_1, x_2) \in \mathbb{R}^d \times \mathbb{R}^d \mapsto s \in (-\infty, \infty)$ (a python `Callable`) that takes two pixel features and outputs a logit score. The **Similarity Kernel** can be both trainable/non-trainable and is specifically used to compute edge probability scores from node (voxel) attributes. 
  3. **VoxelGNN** (optional) is a GNN model that is added after both the **Embedder** and the **Similarity Kernal** have both been specified. Note however, that adding a gnn layer does cause the required memory during train/evaluation time to increase significantly. 
 
 ### B. Training/Testing
@@ -65,15 +65,16 @@ data_blob, res = Trainer.forward(dataset)
 graph = res['graph'][0]
 graph_info = res['graph_info'][0]
 ```
-We instantiate a new `ClusterGraphConstructor` by passing `graph` and `graph_info` as arguments in the constructor:
+We instantiate a new `ClusterGraphConstructor` by passing `graph` and `graph_info` as arguments in the constructor. `graph` is a `GraphBatch` data structure that extends [Batch](https://pytorch-geometric.readthedocs.io/en/latest/modules/data.html) and [Data](https://pytorch-geometric.readthedocs.io/en/latest/modules/data.html).
 ```
 gs_manager = ClusterGraphConstructor(constructor_cfg, graph_batch=graph, graph_info=graph_info)
 ```
 This allows us to access individual point clouds and graphs by 1) batch and semantic id and 2) graph entry number. 
 ```
-subgraph = gs_manager.get_graph(batch_id, semantic_id)
-entry = gs_manager.get_entry(batch_id, semantic_id) # Gives entry number (int) corresponding to given batch/semantic id
+subgraph = gs_manager.get_graph(batch_id, semantic_id) # Returns a torch_geometric.data.Data object.
+entry = gs_manager.get_entry(batch_id, semantic_id) # Gives subgraph id number (int) corresponding to given batch/semantic id
 ```
+To run evaluation over all events across batch and semantic class, call `evaluate_nodes` with a list of accuracy metric functions (ex. `ARI`, `SBD` in `mlreco/utils/metrics.py`). 
 
 
 ### C. Performance
