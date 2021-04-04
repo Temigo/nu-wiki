@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:53:24.796Z
+date: 2021-04-04T10:56:16.616Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -68,6 +68,11 @@ graph_info = res['graph_info'][0]
 We instantiate a new `ClusterGraphConstructor` by passing `graph` and `graph_info` as arguments in the constructor:
 ```
 gs_manager = ClusterGraphConstructor(constructor_cfg, graph_batch=graph, graph_info=graph_info)
+```
+This allows us to access individual point clouds and graphs by 1) batch and semantic id and 2) graph entry number. 
+```
+subgraph = gs_manager.get_graph(batch_id, semantic_id)
+entry = gs_manager.get_entry(batch_id, semantic_id) # Gives entry number (int) corresponding to given batch/semantic id
 ```
 
 
