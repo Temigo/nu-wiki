@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T09:56:49.620Z
+date: 2021-04-04T09:57:00.785Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -48,3 +48,5 @@ GraphSPICE is an extension of SPICE to
 ### C. Performance
 
 #### PILArNet (w/o ghost points)
+
+### D. Event Displays
