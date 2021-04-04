@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T09:55:51.409Z
+date: 2021-04-04T09:56:25.289Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -19,7 +19,9 @@ Currently there are two neural-network based models for voxel clustering: SPICE,
 ### A. Description
 ![spice_architecture.png](/architectures/spice_architecture.png)
 
-### B. Performance
+### B. Training/Testing
+
+### C. Performance
 #### PILArNet (w/o ghost points)
 ![f32d6_boxplot.png](/performance/f32d6_boxplot.png){.align-center}
 
@@ -27,11 +29,9 @@ Currently there are two neural-network based models for voxel clustering: SPICE,
 From January 2021, by Laura
 ![spice_icarus.png](/performance/icarus/spice_icarus.png =500x){.align-center}
 
-### C. Event displays
+### D. Event displays
 
 [event_test_25_cnn_clust_label_vs_pred.pdf](/event_displays/event_test_25_cnn_clust_label_vs_pred.pdf)
-
-### D. Training/Testing
 
 
 
@@ -41,8 +41,8 @@ From January 2021, by Laura
 GraphSPICE is an extension of SPICE to 
 
 
-### Network Architecture
+### A. Description
 
-### 
+### B. Training/Testing
 
-### Training/Testing
+### C. Training/Testing
