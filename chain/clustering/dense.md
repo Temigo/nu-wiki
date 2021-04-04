@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:44:36.096Z
+date: 2021-04-04T10:53:24.796Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -57,7 +57,7 @@ During train time, we set `edge_cut_threshold = 0.0` in the loss to prevent drop
  * `cluster_kwargs`: arguments for the KNN graph generator (ex. $k=10$ gives a 10-neighbors graph).
 
 
-#### Test
+#### Testing and Evaluation
 
 Forwarding **GraphSPICE** will return `graph` and `graph_info` in the output dictionary:
 ```
@@ -65,6 +65,11 @@ data_blob, res = Trainer.forward(dataset)
 graph = res['graph'][0]
 graph_info = res['graph_info'][0]
 ```
+We instantiate a new `ClusterGraphConstructor` by passing `graph` and `graph_info` as arguments in the constructor:
+```
+gs_manager = ClusterGraphConstructor(constructor_cfg, graph_batch=graph, graph_info=graph_info)
+```
+
 
 ### C. Performance
 
