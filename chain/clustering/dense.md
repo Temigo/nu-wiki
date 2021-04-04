@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T11:11:19.581Z
+date: 2021-04-04T11:12:55.040Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -88,6 +88,8 @@ This runs connected components clustering over all subgraphs and stores the comp
 #### PILArNet (w/o ghost points)
 
 ### D. Examples
+
+#### Trained Model (Latest)
 
 
 ## 3. Sparse Mask-RCNN
