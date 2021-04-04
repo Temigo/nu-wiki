@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:25:30.241Z
+date: 2021-04-04T10:25:46.318Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -50,7 +50,7 @@ From January 2021, by Laura
 
 ### B. Training/Testing
 
-Since loss computations and label generation must be done in a per-event and per-semantic class basis, we implement a new interface `ClusterGraphConstructor` parsing individual graphs conveniently (and avoid having to manually assign nodes and edges by slicing on `batch_id` and `semantic_id`, etc. 
+Since loss computations and label generation must be done in a per-event and per-semantic class basis, we implement a new interface `ClusterGraphConstructor` for parsing individual graphs conveniently (and avoid having to manually assign nodes and edges by slicing on `batch_id` and `semantic_id`, etc. 
 
 ### C. Performance
 
