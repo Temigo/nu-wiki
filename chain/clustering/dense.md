@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T09:57:09.508Z
+date: 2021-04-04T09:59:51.487Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -38,7 +38,7 @@ From January 2021, by Laura
 
 ## 2. GraphSPICE
 
-GraphSPICE is an extension of SPICE to 
+GraphSPICE is an enhancement of SPICE to explicitly use local geometric information during label generation. This is done by applying a edge classification loss to a k-nearest neighbor graph over the 3D voxel coordinates. 
 
 
 ### A. Description
