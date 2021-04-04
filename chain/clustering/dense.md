@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:40:40.847Z
+date: 2021-04-04T10:44:36.096Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -49,10 +49,6 @@ From January 2021, by Laura
  3. **VoxelGNN** (optional) is a GNN model that is added after both the **Embedder** and the **Similarity Kernal** have both been specified. Note however, that adding a gnn layer does cause the required memory during train/evaluation time to increase significantly. 
 
 ### B. Training/Testing
-
-Since loss computations and label generation must be done in a per-event and per-semantic class basis, we implement a new interface `ClusterGraphConstructor` for parsing individual graphs conveniently (and avoid having to manually assign nodes and edges by slicing on `batch_id` and `semantic_id`, etc. 
-
-
 #### Train
 
 During train time, we set `edge_cut_threshold = 0.0` in the loss to prevent dropping edges. We refer to [train_graph_spice.cfg](/example_configs/train_graph_spice.cfg) for an example config file for training **GraphSPICE**. Some tunable parameters:
@@ -63,7 +59,12 @@ During train time, we set `edge_cut_threshold = 0.0` in the loss to prevent drop
 
 #### Test
 
-To generate labels 
+Forwarding **GraphSPICE** will return `graph` and `graph_info` in the output dictionary:
+```
+data_blob, res = Trainer.forward(dataset)
+graph = res['graph'][0]
+graph_info = res['graph_info'][0]
+```
 
 ### C. Performance
 
