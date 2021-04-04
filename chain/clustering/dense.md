@@ -1,17 +1,25 @@
 ---
-title: Dense clustering
+title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-03-05T17:28:48.875Z
+date: 2021-04-04T09:50:36.458Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
 ---
 
-## 1. Network architecture
+
+# Voxel Clustering
+
+Voxel clustering refers to the task of clustering point cloud data into different particle IDs. 
+Currently there are two neural-network based models for voxel clustering: SPICE and GraphSPICE. 
+
+## SPICE
+
+### 1. Network architecture
 ![spice_architecture.png](/architectures/spice_architecture.png)
 
-## 2. Performance
+### 2. Performance
 #### PILArNet (w/o ghost points)
 ![f32d6_boxplot.png](/performance/f32d6_boxplot.png){.align-center}
 
