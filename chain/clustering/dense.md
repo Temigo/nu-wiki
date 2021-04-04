@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T09:50:36.458Z
+date: 2021-04-04T09:51:55.263Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -12,7 +12,7 @@ dateCreated: 2020-05-18T21:02:31.963Z
 # Voxel Clustering
 
 Voxel clustering refers to the task of clustering point cloud data into different particle IDs. 
-Currently there are two neural-network based models for voxel clustering: SPICE and GraphSPICE. 
+Currently there are two neural-network based models for voxel clustering: SPICE, GraphSPICE, and Sparse Mask-RCNN. 
 
 ## SPICE
 
