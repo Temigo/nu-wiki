@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:19:28.901Z
+date: 2021-04-04T10:21:36.977Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -46,6 +46,7 @@ From January 2021, by Laura
 **GraphSPICE** models have two to three major components: 1) **Embedder**, 2) **Similarity Kernel**, and an optional 3) **VoxelGNN**.  
  1. **Embedder** is a trainable CNN-based coordinate transform that maps input voxels with respect to some similarity loss (ex. Vanilla **SPICE** is an example of an **embedder**). 
  2. **Similarity Kernel** $K$ is a function $K: (x_1, x_2) \mapsto s \in (-\infty, \infty)$ (a python `Callable`) that takes two pixel features and outputs a logit score $s \in (-\infty, \infty)$. The **Similarity Kernel** can be both trainable/non-trainable and is specifically used to compute edge probability scores from node (voxel) attributes. 
+ 3. **VoxelGNN** (optional) is a GNN model that is added after both the **Embedder** and the **Similarity Kernal** have both been specified. 
 
 Since loss computations and label generation must be done in a per-event and per-semantic class basis, we implement a new data structure `ClusterGraphConstructor` parsing individual graphs conveniently (and avoid having to manually assign nodes and edges by slicing on `batch_id` and `semantic_id`, etc. 
 
