@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:23:35.033Z
+date: 2021-04-04T10:25:30.241Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -48,9 +48,9 @@ From January 2021, by Laura
  2. **Similarity Kernel** $K$ is a function $K: (x_1, x_2) \mapsto s \in (-\infty, \infty)$ (a python `Callable`) that takes two pixel features and outputs a logit score $s \in (-\infty, \infty)$. The **Similarity Kernel** can be both trainable/non-trainable and is specifically used to compute edge probability scores from node (voxel) attributes. 
  3. **VoxelGNN** (optional) is a GNN model that is added after both the **Embedder** and the **Similarity Kernal** have both been specified. Note however, that adding a gnn layer does cause the required memory during train/evaluation time to increase significantly. 
 
-Since loss computations and label generation must be done in a per-event and per-semantic class basis, we implement a new data structure `ClusterGraphConstructor` parsing individual graphs conveniently (and avoid having to manually assign nodes and edges by slicing on `batch_id` and `semantic_id`, etc. 
-
 ### B. Training/Testing
+
+Since loss computations and label generation must be done in a per-event and per-semantic class basis, we implement a new interface `ClusterGraphConstructor` parsing individual graphs conveniently (and avoid having to manually assign nodes and edges by slicing on `batch_id` and `semantic_id`, etc. 
 
 ### C. Performance
 
