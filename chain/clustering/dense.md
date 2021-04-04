@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T10:36:01.085Z
+date: 2021-04-04T10:39:25.121Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -55,7 +55,7 @@ Since loss computations and label generation must be done in a per-event and per
 
 #### Train
 
-During train time, we set `edge_cut_threshold = 0.0` in the loss to prevent dropping edges. We refer to `config/train_graph_spice.cfg` for an example config file for training **GraphSPICE**. Some tunable parameters:
+During train time, we set `edge_cut_threshold = 0.0` in the loss to prevent dropping edges. We refer to [train_graph_spice.cfg](/example_configs/train_graph_spice.cfg) for an example config file for training **GraphSPICE**. Some tunable parameters:
 
  * `feature_embedding_dim`: dimension of discriminative hyperspace. 
  * `cluster_kwargs`: arguments for the KNN graph generator (ex. $k=10$ gives a 10-neighbors graph).
