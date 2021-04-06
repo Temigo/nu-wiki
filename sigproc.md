@@ -2,7 +2,7 @@
 title: SIgnal Processing
 description: 
 published: true
-date: 2021-04-06T23:31:26.325Z
+date: 2021-04-06T23:35:30.727Z
 tags: 
 editor: markdown
 dateCreated: 2021-04-04T11:22:01.203Z
@@ -25,6 +25,8 @@ dateCreated: 2021-04-04T11:22:01.203Z
 ### B. Frequency Filters 
 
 #### 1. Smooth Threshold Fourier Domain Filtering 
+
+#### 2. Mollifiers and the Gibbs Phenomenon
 
 ### C. Adaptive Filtering
 
