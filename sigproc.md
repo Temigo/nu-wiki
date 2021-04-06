@@ -2,7 +2,7 @@
 title: SIgnal Processing
 description: 
 published: true
-date: 2021-04-06T23:35:30.727Z
+date: 2021-04-06T23:42:02.823Z
 tags: 
 editor: markdown
 dateCreated: 2021-04-04T11:22:01.203Z
@@ -58,6 +58,10 @@ dateCreated: 2021-04-04T11:22:01.203Z
 ### A. Overview
 
 ### B. Parallelization
+
+### C. Evaluation Metrics
+
+#### 1. Fuzzy Similarity Metrics
 
 
 ## IV. Hit Finder
