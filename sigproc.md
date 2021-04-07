@@ -2,7 +2,7 @@
 title: SIgnal Processing
 description: 
 published: true
-date: 2021-04-06T23:44:26.450Z
+date: 2021-04-07T04:10:37.696Z
 tags: 
 editor: markdown
 dateCreated: 2021-04-04T11:22:01.203Z
@@ -54,9 +54,14 @@ dateCreated: 2021-04-04T11:22:01.203Z
 
 #### 1. Hysteresis Thresholding 
 
- - Implementation via Recursion 
  - Implementation via Fixed-point Iteration of Morphological Dilation
  - Implementation via Union-Find 
+
+##### References 
+
+ - [BBDT](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5428863)
+ - [Connected Components Labeling I](https://federicobolelli.it/pub_files/2017iciap_labeling.pdf)
+ - [Connected Components Labeling II](https://www.osti.gov/servlets/purl/929013)
 
 
 ## III. Region of Interest (ROI) Detection Chain
