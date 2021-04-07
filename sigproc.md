@@ -2,7 +2,7 @@
 title: SIgnal Processing
 description: 
 published: true
-date: 2021-04-07T04:10:37.696Z
+date: 2021-04-07T04:14:41.666Z
 tags: 
 editor: markdown
 dateCreated: 2021-04-04T11:22:01.203Z
@@ -62,6 +62,7 @@ dateCreated: 2021-04-04T11:22:01.203Z
  - [BBDT](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5428863)
  - [Connected Components Labeling I](https://federicobolelli.it/pub_files/2017iciap_labeling.pdf)
  - [Connected Components Labeling II](https://www.osti.gov/servlets/purl/929013)
+ - Artur Nowakowski and Wladyslaw Skarbek, [*Fast computation of thresholding hysteresis for edge detection*](https://doi.org/10.1117/12.674959), Proc. SPIE 6159, Photonics Applications in Astronomy, Communications, Industry, and High-Energy Physics Experiments IV, 615948 (26 April 2006);
 
 
 ## III. Region of Interest (ROI) Detection Chain
