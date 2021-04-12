@@ -2,11 +2,23 @@
 title: LArTPC Experiments
 description: Useful numbers
 published: true
-date: 2020-05-18T23:26:26.014Z
+date: 2021-04-12T23:50:34.554Z
 tags: 
+editor: markdown
+dateCreated: 2020-05-18T23:17:11.101Z
 ---
 
-### Experiment-specific numbers
+# Accessing samples
+Fermilab uses SAM to interact with samples. You need to authenticate to use it:
+```
+$ kinit
+$ kx509
+```
+https://sbnsoftware.github.io/icaruscode_wiki/samples/MCproduction.html
+You may need to "pre-stage" a sample before you can use it.
+https://cdcvs.fnal.gov/redmine/projects/icarus-production/wiki/How_to_pre-stage_files_and_check_if_you_need_to_do_it
+
+# Experiment-specific numbers
 * [ICARUS](/experiments/icarus)
 
 ### General
