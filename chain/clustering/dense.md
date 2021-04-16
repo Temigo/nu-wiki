@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-16T07:10:03.592Z
+date: 2021-04-16T17:41:42.605Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -78,7 +78,8 @@ To run evaluation over all events across batch and semantic class, call `evaluat
 ```python
 from mlreco/utils/metrics import ARI, SBD
 funcs = [ARI, SBD]
-graph.evaluate_nodes(labels[:, [0, 1, 2, 3, 5, -1]], funcs) # 5 is the default fragment label column and -1 the semantic label column.
+gs_manager.fit_predict()
+gs_manager.evaluate_nodes(labels[:, [0, 1, 2, 3, 5, -1]], funcs) # 5 is the default fragment label column and -1 the semantic label column.
 ```
 This runs connected components clustering over all subgraphs and stores the computed accuracy metrics as columns to `graph.info`. 
 
