@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-16T17:41:42.605Z
+date: 2021-04-16T17:59:43.043Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -79,14 +79,21 @@ To run evaluation over all events across batch and semantic class, call `evaluat
 from mlreco/utils/metrics import ARI, SBD
 funcs = [ARI, SBD]
 gs_manager.fit_predict()
-gs_manager.evaluate_nodes(labels[:, [0, 1, 2, 3, 5, -1]], funcs) # 5 is the default fragment label column and -1 the semantic label column.
+gs_manager.evaluate_nodes(labels, funcs) # 5 is the default fragment label column and -1 the semantic label column.
 ```
 This runs connected components clustering over all subgraphs and stores the computed accuracy metrics as columns to `graph.info`. 
 
+#### High Statistics / Batch Validation Testing
 
+The post processing module is placed in `mlreco.post_processing.graph_spice_metrics.py`. Use a validation config file (see **Trained Models** in the Examples section) and run high statistics inference with the following command:
+```bash
+python3 -u {$LARTPC_MLRECO3D_PATH}/bin/val.py {$PATH_TO_CONFIG} {$PATH_TO_WEIGHTS}
+```
 ### C. Performance
 
 #### PILArNet (w/o ghost points)
+
+1. Dependence on inference stage edge probability cut threshold:
 
 ### D. Examples
 
@@ -94,6 +101,7 @@ This runs connected components clustering over all subgraphs and stores the comp
  
  * Weight Directory: `/sdf/group/neutrino/koh0207/weights/experimental/graph_spice/`
  * Training Config: `/sdf/group/neutrino/koh0207/logs/experimental/graph_spice/config.cfg`
+ * Inference Config: `/sdf/group/neutrino/koh0207/logs/experimental/graph_spice/config_test.cfg`
 
 
 ## 3. Sparse Mask-RCNN
