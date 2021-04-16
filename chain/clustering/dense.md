@@ -2,7 +2,7 @@
 title: Voxel Clustering
 description: Track + shower fragments
 published: true
-date: 2021-04-04T11:17:46.211Z
+date: 2021-04-16T05:54:12.212Z
 tags: 
 editor: markdown
 dateCreated: 2020-05-18T21:02:31.963Z
@@ -60,22 +60,22 @@ During train time, we set `edge_cut_threshold = 0.0` in the loss to prevent drop
 #### Testing and Evaluation
 
 Forwarding **GraphSPICE** will return `graph` and `graph_info` in the output dictionary:
-```
+```python
 data_blob, res = Trainer.forward(dataset)
 graph = res['graph'][0]
 graph_info = res['graph_info'][0]
 ```
 We instantiate a new `ClusterGraphConstructor` by passing `graph` and `graph_info` as arguments in the constructor. `graph` is a `GraphBatch` data structure that extends [Batch](https://pytorch-geometric.readthedocs.io/en/latest/modules/data.html) and [Data](https://pytorch-geometric.readthedocs.io/en/latest/modules/data.html), and `graph_info` is a pandas dataframe containing `BatchID, SemanticID, GraphID` mappings (each combination of `BatchID` and `SemanticID` corresponds to a unique `GraphID` entry number). 
-```
+```python
 gs_manager = ClusterGraphConstructor(constructor_cfg, graph_batch=graph, graph_info=graph_info)
 ```
 This allows us to access individual point clouds and graphs by 1) batch and semantic id and 2) graph entry number. 
-```
+```python
 subgraph = gs_manager.get_graph(batch_id, semantic_id) # Returns a torch_geometric.data.Data object.
 entry = gs_manager.get_entry(batch_id, semantic_id) # Gives subgraph id number (int) corresponding to given batch/semantic id
 ```
 To run evaluation over all events across batch and semantic class, call `evaluate_nodes` with a list of accuracy metric functions (ex. `ARI`, `SBD` in `mlreco/utils/metrics.py`). For example:
-```
+```python
 from mlreco/utils/metrics import ARI, SBD
 funcs = [ARI, SBD]
 graph.evaluate_nodes(labels[:, [0, 1, 2, 3, 5, -1]], funcs) # 5 is the default fragment label column and -1 the semantic label column.
